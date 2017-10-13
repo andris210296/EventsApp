@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">EventsApp</string>
+    <string name="sLogin">Login</string>
+    <string name="sPassword">Senha</string>
+    <string name="sEmail">E-mail</string>
+    <string name="sUserDate">Aniversário</string>
+    <string name="sBtnLogin">Logar</string>
+    <string name="sBtnRegister">Criar Novo</string>
+    <string name="sBtnGoBack">Voltar</string>
+    <string name="sBtnUpdate">Alterar</string>
+    <string name="sBtnDelete">Deletar</string>
+
+    <string name="sNameEvent">Nome do Evento</string>
+    <string name="sDescriptionEvent">Descrição do Evento</string>
+    <string name="sDateEvent">Data do Evento</string>
+    <string name="sTimeEvent">Horário do Evento</string>
+    <string name="sBtnNewEvent">Criar Evento</string>
+
+
+    <string name="exIncorrectlyTypedField">Algum campo foi digitado incorretamente!</string>
+    <string name="exUniqueLogin">Este login já existe!</string>
+    <string name="exLogin">Não foi possível Logar!</string>
+    <string name="exBD">Erro com o BD!</string>
+    <string name="exGetUserById">Erro ao recuperar Usuario por Id!</string>
+    <string name="exDelete">Erro ao deletar!</string>
+    <string name="exList">Erro ao carregar lista!</string>
+
+    <string name="title_act_new_register">RegisterActivity</string>
+    <string name="title_activity_menu">MenuActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_my_events">Meus Eventos</string>
+    <string name="title_all_events">Todos os Eventos</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main2">Main2Activity</string>
+</resources>
