@@ -46,7 +46,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private View view;
 
 
-
+    private User user;
     private UserModel userM;
     private EventModel eventM;
 
@@ -58,7 +58,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private Button btnUpdate;
     private Button btnDelete;
 
-    AlertDialog.Builder dlg;
+    private AlertDialog.Builder dlg;
 
 
     public HomeFragment() {
@@ -111,13 +111,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         btnDelete = (AppCompatButton) view.findViewById(R.id.btnDeleteUser);
         btnDelete.setOnClickListener(this);
 
-
         dlg = new AlertDialog.Builder(view.getContext());
 
         Intent intent = getActivity().getIntent();
-        userM = (UserModel) intent.getExtras().get("userM");
-        eventM = (EventModel) intent.getExtras().get("eventM");
+        user = (User) intent.getExtras().get("user");
 
+        try {
+            userM = new UserModel();
+            userM.setUser(user);
+        }catch (Exception e){
+            openDlg(getString(R.string.exBD));
+        }
 
         setTextEdts(userM.getUser());
 
@@ -137,17 +141,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         edtEmail.getText().toString(),
                         edtUserDate.getText().toString());
 
-
-                /*
-                User user = new User();
-                user.setKeyUserId(userLogged.getKeyUserId());
-
-                user.setLogin(edtLogin.getText().toString());
-                user.setPassword(edtPassword.getText().toString());
-                user.setEmail(edtEmail.getText().toString());
-                user.setUserDate(edtUserDate.getText().toString());
-                */
-
                 if(userM.loginIsUnique(user.getLogin()) || user.getLogin().matches(edtLogin.getText().toString())) {
                     userM.update(user);
 
@@ -165,7 +158,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         if(v.getId() == btnDelete.getId()){
 
             try{
-
                 setUserLogged(userM.getUser());
                 clearEdts();
                 Intent intent = new Intent(view.getContext(), MenuActivity.class);

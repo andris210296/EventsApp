@@ -61,6 +61,7 @@ public class MyEventsFragment extends Fragment implements View.OnClickListener {
     private Event event;
     private EventModel eventM;
     private UserModel userM;
+    private User user;
     private List<Event> events;
 
     private RecyclerView rv;
@@ -114,10 +115,11 @@ public class MyEventsFragment extends Fragment implements View.OnClickListener {
         rv.setLayoutManager(llm);
 
         Intent intent = getActivity().getIntent();
-        userM = (UserModel) intent.getExtras().get("userM");
-        eventM = (EventModel) intent.getExtras().get("eventM");
+        user = (User) intent.getExtras().get("user");
 
         try {
+            eventM = new EventModel();
+            eventM.myEventsList(user);
             RVAdapter adapter = new RVAdapter(eventM.getEvents());
             rv.setAdapter(adapter);
         } catch (Exception e) {
@@ -137,8 +139,8 @@ public class MyEventsFragment extends Fragment implements View.OnClickListener {
         if(v.getId() == fabNewEvent.getId()){
 
             Intent intent = new Intent(view.getContext(), EventActivity.class);
-            intent.putExtra("userM",userM);
-            intent.putExtra("eventM", eventM);
+            intent.putExtra("user",user);
+            intent.putExtra("event", new Event());
             startActivity(intent);
         }
 

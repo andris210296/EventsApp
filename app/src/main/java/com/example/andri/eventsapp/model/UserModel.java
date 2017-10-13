@@ -13,7 +13,7 @@ import java.util.List;
  * Created by andri on 31/08/2017.
  */
 
-public class UserModel implements Serializable{
+public class UserModel {
 
     private User user;
     private UserDAO uDAO;

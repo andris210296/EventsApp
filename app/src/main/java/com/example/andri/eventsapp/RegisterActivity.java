@@ -9,6 +9,7 @@ import android.support.v7.widget.AppCompatButton;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.andri.eventsapp.model.Event;
 import com.example.andri.eventsapp.model.EventModel;
 import com.example.andri.eventsapp.model.User;
 import com.example.andri.eventsapp.model.UserModel;
@@ -74,8 +75,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                     clearEdts();
                     Intent intent = new Intent(this, MenuActivity.class);
-                    intent.putExtra("userM",userM);
-                    intent.putExtra("eventM",new EventModel());
+                    intent.putExtra("user",user);
                     startActivity(intent);
                 }else
                     openDlg(getString(R.string.exUniqueLogin));

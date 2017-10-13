@@ -11,7 +11,7 @@ import java.util.List;
  * Created by andri on 16/09/2017.
  */
 
-public class EventModel implements Serializable {
+public class EventModel {
 
     private Event event;
     private EventDAO eDAO;
@@ -48,20 +48,22 @@ public class EventModel implements Serializable {
         setEvents(events);
 
     }
-    /*
 
-    public RVAdapter listMyEventsCards(User userLogged) throws Exception{
-        updateListEvents();
-        List<Event> events = new ArrayList<Event>();
-        for(Event event: getEvents()){
-            if(event.getCreator().getKeyUserId().matches(userLogged.getKeyUserId())){
-                events.add(event);
+    public void myEventsList(User user) throws Exception{
+        getEvents().clear();
+        List<Event> e = geteDAO().list();
+        if (!e.isEmpty()) {
+            for (Event event : e) {
+                if(event.getCreator().getKeyUserId().equals(user.getKeyUserId())) {
+                    getEvents().add(event);
+                }
             }
-        }
-        RVAdapter adapter = new RVAdapter(events);
-        return adapter;
+
+        } else
+            getEvents().clear();
+        setEvents(events);
     }
-*/
+
 
     public Event getEvent() {
         return event;

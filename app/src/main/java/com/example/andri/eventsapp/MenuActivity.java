@@ -22,7 +22,7 @@ public class MenuActivity extends AppCompatActivity {
     FragmentTransaction transaction;
 
 
-    UserModel userM;
+    User user;
     EventModel eventM;
 
     AlertDialog.Builder dlg;
@@ -35,12 +35,13 @@ public class MenuActivity extends AppCompatActivity {
         dlg = new AlertDialog.Builder(this);
 
         Intent intent = getIntent();
-        userM = (UserModel) intent.getExtras().get("userM");
-        //eventM = (EventModel) intent.getExtras().get("eventM");
+        user = (User) intent.getExtras().get("user");
+
         try {
             eventM = new EventModel();
+
         } catch (Exception e) {
-            e.printStackTrace();
+            openDlg(getString(R.string.exBD));
         }
 
 
@@ -52,7 +53,7 @@ public class MenuActivity extends AppCompatActivity {
 
         HomeFragment homeFragment = new HomeFragment();
         Bundle arguments = new Bundle();
-        arguments.putSerializable("userM" , userM);
+        arguments.putSerializable("user" , user);
         homeFragment.setArguments(arguments);
 
         transaction.replace(R.id.content,homeFragment).commit();
@@ -77,8 +78,7 @@ public class MenuActivity extends AppCompatActivity {
             transaction = fragmentManager.beginTransaction();
 
             Bundle arguments = new Bundle();
-            arguments.putSerializable("userM" , userM);
-            arguments.putSerializable("eventM", eventM);
+            arguments.putSerializable("user" , user);
 
             HomeFragment homeFragment = new HomeFragment();
             homeFragment.setArguments(arguments);

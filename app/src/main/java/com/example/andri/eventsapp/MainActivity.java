@@ -69,8 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(userM.login(edtLogin.getText().toString(),edtPassword.getText().toString())) {
                     eventM.updateListEvents();
                     Intent intent = new Intent(this, MenuActivity.class);
-                    intent.putExtra("userM",userM);
-                    //intent.putExtra("eventM",eventM);
+                    intent.putExtra("user",userM.getUser());
                     startActivity(intent);
                     clearEdts();
                 }else

@@ -19,7 +19,7 @@ import java.util.List;
 
 public class EventActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private UserModel userM;
+    private User user;
     private Event event;
     private EventModel eventM;
 
@@ -51,8 +51,15 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
         btnNewEvent.setOnClickListener(this);
 
         Intent intent = getIntent();
-        userM = (UserModel) intent.getExtras().get("userM");
-        eventM = (EventModel) intent.getExtras().get("eventM");
+        user = (User) intent.getExtras().get("user");
+        event = (Event) intent.getExtras().get("event");
+
+        try {
+            eventM = new EventModel();
+
+        } catch (Exception e) {
+            openDlg(getString(R.string.exBD));
+        }
 
     }
 
@@ -65,15 +72,15 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
                         edtDescriptionEvent.getText().toString(),
                         edtDateEvent.getText().toString(),
                         edtTimeEvent.getText().toString(),
-                        userM.getUser());
+                        user);
 
 
                 eventM.getEvents().add(event);
                 eventM.createEvent(event);
 
                 Intent intent = new Intent(this, MenuActivity.class);
-                intent.putExtra("userM",userM);
-                intent.putExtra("eventM", eventM);
+                intent.putExtra("user",user);
+                intent.putExtra("event", event);
                 startActivity(intent);
 
 
