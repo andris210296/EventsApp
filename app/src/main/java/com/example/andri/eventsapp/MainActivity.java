@@ -17,11 +17,7 @@ import java.io.Serializable;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    User user;
     private UserModel userM;
-
-    private EventModel eventM;
-
 
     AlertDialog.Builder dlg;
 
@@ -41,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         try {
             userM = new UserModel();
-            eventM = new EventModel();
+
 
         }catch (Exception e){
             openDlg(e.getMessage());
@@ -67,7 +63,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if( v.getId() == btnLogin.getId()) {
             try {
                 if(userM.login(edtLogin.getText().toString(),edtPassword.getText().toString())) {
-                    eventM.updateListEvents();
                     Intent intent = new Intent(this, MenuActivity.class);
                     intent.putExtra("user",userM.getUser());
                     startActivity(intent);
@@ -76,7 +71,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     throw  new Exception();
 
             }catch (Exception e){
-                openDlg(e.getMessage());
                 openDlg(getString(R.string.exLogin));
             }
 

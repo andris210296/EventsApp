@@ -10,7 +10,7 @@ import java.util.List;
  * Created by andri on 16/09/2017.
  */
 
-public interface EventDAO {
+public interface EventDAO{
     public void create(Event event)throws Exception;
 
     public List list()throws Exception;

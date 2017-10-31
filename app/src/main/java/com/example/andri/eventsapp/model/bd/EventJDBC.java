@@ -7,7 +7,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,10 +22,11 @@ public class EventJDBC implements EventDAO, ChildEventListener {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("event");
 
-    List<Event> events = new ArrayList<>();
+    List<Event> events;
 
-    public EventJDBC(){
+    public EventJDBC() {
         myRef.addChildEventListener(this);
+        events = new ArrayList<>();
     }
 
     @Override
@@ -33,6 +36,9 @@ public class EventJDBC implements EventDAO, ChildEventListener {
 
     @Override
     public List list() throws Exception {
+
+
+
         return events;
     }
 
@@ -81,8 +87,8 @@ public class EventJDBC implements EventDAO, ChildEventListener {
 
     @Override
     public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-        for(Event event: events){
-            if(event.getKeyEventId().matches(dataSnapshot.getKey())){
+        for (Event event : events) {
+            if (event.getKeyEventId().matches(dataSnapshot.getKey())) {
                 Event eventUpdated = dataSnapshot.getValue(Event.class);
 
                 event.setKeyEventId(dataSnapshot.getKey());
@@ -99,8 +105,8 @@ public class EventJDBC implements EventDAO, ChildEventListener {
 
     @Override
     public void onChildRemoved(DataSnapshot dataSnapshot) {
-        for(Event event: events){
-            if(event.getKeyEventId().matches(dataSnapshot.getKey())){
+        for (Event event : events) {
+            if (event.getKeyEventId().matches(dataSnapshot.getKey())) {
                 events.remove(event);
             }
         }

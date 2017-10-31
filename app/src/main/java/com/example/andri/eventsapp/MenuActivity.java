@@ -21,7 +21,6 @@ public class MenuActivity extends AppCompatActivity {
     FragmentManager fragmentManager;
     FragmentTransaction transaction;
 
-
     User user;
     EventModel eventM;
 
@@ -34,16 +33,14 @@ public class MenuActivity extends AppCompatActivity {
 
         dlg = new AlertDialog.Builder(this);
 
-        Intent intent = getIntent();
-        user = (User) intent.getExtras().get("user");
-
         try {
             eventM = new EventModel();
+        }catch (Exception e){
 
-        } catch (Exception e) {
-            openDlg(getString(R.string.exBD));
         }
 
+        Intent intent = getIntent();
+        user = (User) intent.getExtras().get("user");
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -54,9 +51,11 @@ public class MenuActivity extends AppCompatActivity {
         HomeFragment homeFragment = new HomeFragment();
         Bundle arguments = new Bundle();
         arguments.putSerializable("user" , user);
+        arguments.putSerializable("events" , (Serializable) eventM.getEvents());
         homeFragment.setArguments(arguments);
 
         transaction.replace(R.id.content,homeFragment).commit();
+
     }
 
 
@@ -79,6 +78,12 @@ public class MenuActivity extends AppCompatActivity {
 
             Bundle arguments = new Bundle();
             arguments.putSerializable("user" , user);
+            try {
+                eventM.updateListEvents();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            arguments.putSerializable("events" , (Serializable) eventM.getEvents());
 
             HomeFragment homeFragment = new HomeFragment();
             homeFragment.setArguments(arguments);

@@ -117,6 +117,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         user = (User) intent.getExtras().get("user");
 
         try {
+            eventM = new EventModel();
+            eventM.setEvents((List<Event>) intent.getExtras().get("events"));
             userM = new UserModel();
             userM.setUser(user);
         }catch (Exception e){

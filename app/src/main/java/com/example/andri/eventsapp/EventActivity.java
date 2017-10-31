@@ -1,6 +1,7 @@
 package com.example.andri.eventsapp;
 
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
 
     private User user;
     private Event event;
+    private List<Event> events;
     private EventModel eventM;
 
     private EditText edtNameEvent;
@@ -53,6 +55,7 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
         Intent intent = getIntent();
         user = (User) intent.getExtras().get("user");
         event = (Event) intent.getExtras().get("event");
+        events = (List<Event>) intent.getExtras().getSerializable("events");
 
         try {
             eventM = new EventModel();
@@ -81,6 +84,7 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
                 Intent intent = new Intent(this, MenuActivity.class);
                 intent.putExtra("user",user);
                 intent.putExtra("event", event);
+                intent.putExtra("events", (Serializable) events);
                 startActivity(intent);
 
 

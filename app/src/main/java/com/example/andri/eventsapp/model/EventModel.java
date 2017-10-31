@@ -16,7 +16,7 @@ public class EventModel {
     private Event event;
     private EventDAO eDAO;
 
-    private List<Event> events;
+    private List<Event> events = new ArrayList<>();
 
 
     public EventModel() throws Exception {
@@ -49,19 +49,18 @@ public class EventModel {
 
     }
 
-    public void myEventsList(User user) throws Exception{
-        getEvents().clear();
-        List<Event> e = geteDAO().list();
-        if (!e.isEmpty()) {
-            for (Event event : e) {
+    public List<Event> myEventsList(User user) throws Exception{
+        List<Event> eventsUser = new ArrayList<>();
+        if (!getEvents().isEmpty()) {
+            for (Event event : getEvents()) {
                 if(event.getCreator().getKeyUserId().equals(user.getKeyUserId())) {
-                    getEvents().add(event);
+                    eventsUser.add(event);
                 }
             }
 
         } else
             getEvents().clear();
-        setEvents(events);
+        return eventsUser;
     }
 
 

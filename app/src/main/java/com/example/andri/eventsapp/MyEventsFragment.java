@@ -22,12 +22,16 @@ import com.example.andri.eventsapp.model.EventModel;
 import com.example.andri.eventsapp.model.RVAdapter;
 import com.example.andri.eventsapp.model.User;
 import com.example.andri.eventsapp.model.UserModel;
+import com.example.andri.eventsapp.model.bd.EventDAO;
+import com.example.andri.eventsapp.model.bd.EventJDBC;
 
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static java.lang.Thread.sleep;
 
 
 /**
@@ -62,7 +66,7 @@ public class MyEventsFragment extends Fragment implements View.OnClickListener {
     private EventModel eventM;
     private UserModel userM;
     private User user;
-    private List<Event> events;
+    private ArrayList<Event> events;
 
     private RecyclerView rv;
 
@@ -98,7 +102,20 @@ public class MyEventsFragment extends Fragment implements View.OnClickListener {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
+            try {
+                eventM = new EventModel();
+
+                user = (User) getArguments().get("user");
+                events = (ArrayList<Event>) getArguments().getSerializable("events");
+
+                eventM.setEvents(events);
+
+            } catch (Exception e) {
+                openDlg(getString(R.string.exList));
+            }
         }
+
     }
 
     @Override
@@ -109,25 +126,25 @@ public class MyEventsFragment extends Fragment implements View.OnClickListener {
 
         dlg = new AlertDialog.Builder(view.getContext());
 
+
         rv = (RecyclerView) view.findViewById(R.id.rvMyEvents);
         rv.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(view.getContext());
         rv.setLayoutManager(llm);
 
-        Intent intent = getActivity().getIntent();
-        user = (User) intent.getExtras().get("user");
-
-        try {
-            eventM = new EventModel();
-            eventM.myEventsList(user);
-            RVAdapter adapter = new RVAdapter(eventM.getEvents());
-            rv.setAdapter(adapter);
-        } catch (Exception e) {
-            openDlg(getString(R.string.exList));
-        }
-
         fabNewEvent = (FloatingActionButton) view.findViewById(R.id.fabAddEvent);
         fabNewEvent.setOnClickListener(this);
+
+
+        try {
+
+            RVAdapter adapter = new RVAdapter(eventM.myEventsList(user));
+            rv.setAdapter(adapter);
+
+        } catch (Exception e) {
+            openDlg(getString(R.string.exList));
+            openDlg(e.getMessage());
+        }
 
         return view;
     }
@@ -136,11 +153,12 @@ public class MyEventsFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
-        if(v.getId() == fabNewEvent.getId()){
+        if (v.getId() == fabNewEvent.getId()) {
 
             Intent intent = new Intent(view.getContext(), EventActivity.class);
-            intent.putExtra("user",user);
-            intent.putExtra("event", new Event());
+            intent.putExtra("user", user);
+            intent.putExtra("event",new Event());
+            intent.putExtra("events" , (Serializable) eventM.getEvents());;
             startActivity(intent);
         }
 
