@@ -138,7 +138,7 @@ public class MyEventsFragment extends Fragment implements View.OnClickListener {
 
         try {
 
-            RVAdapter adapter = new RVAdapter(eventM.myEventsList(user));
+            RVAdapter adapter = new RVAdapter(eventM.myEventsList(user),view.getContext());
             rv.setAdapter(adapter);
 
         } catch (Exception e) {

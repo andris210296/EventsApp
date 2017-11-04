@@ -3,4 +3,61 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="apptheme_color">#860011</color>
+    <color name="apptheme_color_dark">#5c0e0e</color>
+    <color name="apptheme_color_light_plus">#d3c6f746</color>
+    <color name="apptheme_selected_option">#D5EA9B</color>
+    <color name="apptheme_gray">#F5F5F5</color>
+
+    <color name="blue">#0171bb</color>
+    <color name="blue_fb">#3b5a9a</color>
+    <color name="blue_plus">#38a1e5</color>
+    <color name="blue_light">#54bfd3</color>
+    <color name="blue_light_plus">#84dbeb</color>
+    <color name="blue_conteudo_pedagogico">#67bf97</color>
+    <color name="blue_conteudo_pedagogico_light">#8bd7b4</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="white_dark">#ebebeb</color>
+    <color name="orange">#FF8C50</color>
+    <color name="green">#009217</color>
+    <color name="green_light">#14ad03</color>
+    <color name="dark_green">#0d8c00</color>
+
+    <color name="lightgray">#e7e7e7</color>
+    <color name="light_gray_plus">#ffEEEEEE</color>
+    <color name="gray_transparent">#77c6c5c1</color>
+    <color name="gray_dark_transparent">#DDD</color>
+    <color name="gray">#dddddd</color>
+    <color name="dark_gray">#444444</color>
+    <color name="dark_gray_transparent">#77444444</color>
+    <color name="gray_title_list_report">#868589</color>
+    <color name="gray_error">#727176</color>
+    <color name="gray_error_light">#d2d1d8</color>
+    <color name="black_transparent">#560b0b0b</color>
+
+    <color name="trans">#00000000</color>
+    <color name="black">#000000</color>
+    <color name="yellow">#860011</color>
+
+    <color name="red">#FF2350</color>
+    <color name="red_dark">#3e001a</color>
+    <color name="gray_ligth">#F3F3F3</color>
+    <color name="red_light">#ffff594f</color>
+
+    <color name="categ1">#1FB5AD</color>
+    <color name="categ1_light">#73b5b3</color>
+    <color name="categ2">#fa8564</color>
+    <color name="categ2_light">#fabda5</color>
+    <color name="categ3">#f3c022</color>
+    <color name="categ3_light">#f3df8e</color>
+
+    <color name="conteudo_pedagogico">#3cb9b2</color>
+    <color name="transparent">#00000000</color>
+    <color name="red_transparent">#9cff0002</color>
+
+    <color name ="red_invalid">#d30015</color>
+
+
 </resources>

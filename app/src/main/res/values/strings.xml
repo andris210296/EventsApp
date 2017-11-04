@@ -16,6 +16,9 @@
     <string name="sTimeEvent">Horário do Evento</string>
     <string name="sBtnNewEvent">Criar Evento</string>
 
+    <string name="sBtnParticipate">Participar</string>
+    <string name="sBtnNotParticipate">Sair</string>
+
 
     <string name="exIncorrectlyTypedField">Algum campo foi digitado incorretamente!</string>
     <string name="exUniqueLogin">Este login já existe!</string>
@@ -25,11 +28,12 @@
     <string name="exDelete">Erro ao deletar!</string>
     <string name="exList">Erro ao carregar lista!</string>
 
-    <string name="title_act_new_register">RegisterActivity</string>
+    <string name="title_act_new_register">Cadastro</string>
     <string name="title_activity_menu">MenuActivity</string>
     <string name="title_home">Home</string>
     <string name="title_my_events">Meus Eventos</string>
     <string name="title_all_events">Todos os Eventos</string>
+    <string name="title_activity_event">Evento</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

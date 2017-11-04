@@ -91,6 +91,9 @@ public class MenuActivity extends AppCompatActivity {
             MyEventsFragment myEventsFragment = new MyEventsFragment();
             myEventsFragment.setArguments(arguments);
 
+            AllEventsFragment allEventsFragment = new AllEventsFragment();
+            allEventsFragment.setArguments(arguments);
+
 
             switch (item.getItemId()) {
                 case R.id.navigation_home:
@@ -100,7 +103,7 @@ public class MenuActivity extends AppCompatActivity {
                     transaction.replace(R.id.content,myEventsFragment).commit();
                     return true;
                 case R.id.navigation_all_events:
-                    transaction.replace(R.id.content,new AllEventsFragment()).commit();
+                    transaction.replace(R.id.content,allEventsFragment).commit();
                     return true;
             }
             return false;

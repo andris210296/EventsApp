@@ -1,12 +1,19 @@
 package com.example.andri.eventsapp.model;
 
+import android.content.ContentValues;
+import android.content.Context;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.andri.eventsapp.R;
 
@@ -19,18 +26,24 @@ import java.util.List;
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
 
 
-    List<Event> events;
+    private List<Event> events;
 
-    public RVAdapter(List<Event> events) {
+    private Context mContext;
+
+    public RVAdapter(List<Event> events, Context mContext) {
         this.events = events;
+        this.mContext = mContext;
     }
 
-    public static class EventViewHolder extends RecyclerView.ViewHolder {
+
+    public class EventViewHolder extends RecyclerView.ViewHolder {
         CardView cv;
         TextView txtNameEvent;
         TextView txtDateEvent;
         TextView txtTimeEvent;
         ImageView imvEvent;
+        ImageButton imbOpts;
+
 
         EventViewHolder(View itemView) {
             super(itemView);
@@ -39,6 +52,9 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
             txtDateEvent = (TextView) itemView.findViewById(R.id.txtDateEvent);
             txtTimeEvent = (TextView) itemView.findViewById(R.id.txtTimeEvent);
             imvEvent = (ImageView) itemView.findViewById(R.id.imvEvent);
+            imbOpts = (ImageButton) itemView.findViewById(R.id.imbOpts);
+
+
         }
     }
 
@@ -49,11 +65,20 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
         return pvh;
     }
     @Override
-    public void onBindViewHolder(EventViewHolder eventViewHolder, int i) {
+    public void onBindViewHolder(final EventViewHolder eventViewHolder, int i) {
         eventViewHolder.txtNameEvent.setText(events.get(i).getName());
         eventViewHolder.txtDateEvent.setText(events.get(i).getEventDate());
         eventViewHolder.txtTimeEvent.setText(events.get(i).getTime());
         eventViewHolder.imvEvent.setImageResource(R.mipmap.ic_launcher);
+
+        eventViewHolder.imbOpts.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                showPopupMenu(eventViewHolder.imbOpts);
+
+            }
+        });
 
     }
 
@@ -65,4 +90,37 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
     }
+
+    private void showPopupMenu(View view) {
+        // inflate menu
+        PopupMenu popup = new PopupMenu(mContext, view);
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.menu_event, popup.getMenu());
+        popup.setOnMenuItemClickListener(new MyMenuItemClickListener());
+        popup.show();
+    }
+
+    /**
+     * Click listener for popup menu items
+     */
+    class MyMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
+
+        public MyMenuItemClickListener() {
+        }
+
+        @Override
+        public boolean onMenuItemClick(MenuItem menuItem) {
+            switch (menuItem.getItemId()) {
+                case R.id.act_participate:
+                    Toast.makeText(mContext, "Participate", Toast.LENGTH_SHORT).show();
+                    return true;
+                case R.id.act_not_participate:
+                    Toast.makeText(mContext, "Not Participate", Toast.LENGTH_SHORT).show();
+                    return true;
+                default:
+            }
+            return false;
+        }
+    }
+
 }

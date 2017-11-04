@@ -3,7 +3,9 @@ package com.example.andri.eventsapp;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,8 +15,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.andri.eventsapp.model.Event;
+import com.example.andri.eventsapp.model.EventModel;
 import com.example.andri.eventsapp.model.RVAdapter;
 import com.example.andri.eventsapp.model.User;
+import com.example.andri.eventsapp.model.UserModel;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,6 +45,21 @@ public class AllEventsFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private View view;
+
+    private Event event;
+    private EventModel eventM;
+    private UserModel userM;
+    private User user;
+    private ArrayList<Event> events;
+
+    private RecyclerView rv;
+
+    private FloatingActionButton fabNewEvent;
+
+    AlertDialog.Builder dlg;
+
 
     public AllEventsFragment() {
         // Required empty public constructor
@@ -70,6 +89,15 @@ public class AllEventsFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
+            try {
+                eventM = new EventModel();
+                events = (ArrayList<Event>) getArguments().getSerializable("events");
+                eventM.setEvents(events);
+
+            } catch (Exception e) {
+                openDlg(getString(R.string.exList));
+            }
         }
     }
 
@@ -77,16 +105,16 @@ public class AllEventsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_all_events, container, false);
+        view = inflater.inflate(R.layout.fragment_all_events, container, false);
 
         RecyclerView rv = (RecyclerView)view.findViewById(R.id.rvAllEvents);
         rv.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(view.getContext());
         rv.setLayoutManager(llm);
 
+        RVAdapter adapter = new RVAdapter(events,getContext());
+        //adapter.getImbDelete().setVisibility(View.INVISIBLE);
 
-
-        RVAdapter adapter = new RVAdapter(events());
         rv.setAdapter(adapter);
         return view;
     }
@@ -116,6 +144,12 @@ public class AllEventsFragment extends Fragment {
 
         return allEvents;
 
+    }
+
+    public void openDlg(String message) {
+        dlg.setMessage(message.toString());
+        dlg.setNeutralButton("OK", null);
+        dlg.show();
     }
 
 
