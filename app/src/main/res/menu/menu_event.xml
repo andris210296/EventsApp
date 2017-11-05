@@ -16,8 +16,4 @@
         android:orderInCategory="102"
         android:title="@string/sBtnUpdate" />
 
-    <item
-        android:id="@+id/act_delete"
-        android:orderInCategory="103"
-        android:title="@string/sBtnDelete" />
 </menu>

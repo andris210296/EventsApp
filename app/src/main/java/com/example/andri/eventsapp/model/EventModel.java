@@ -40,6 +40,11 @@ public class EventModel {
         updateListEvents();
     }
 
+    public void deleteEvent(Event event) throws Exception {
+        eDAO.delete(event);
+        updateListEvents();
+    }
+
     public void updateListEvents() throws Exception {
         getEvents().clear();
         List<Event> e = geteDAO().list();
@@ -54,11 +59,11 @@ public class EventModel {
 
     }
 
-    public List<Event> myEventsList(User user) throws Exception{
+    public List<Event> myEventsList(User user) throws Exception {
         List<Event> eventsUser = new ArrayList<>();
         if (!getEvents().isEmpty()) {
             for (Event event : getEvents()) {
-                if(event.getCreator().getKeyUserId().equals(user.getKeyUserId())) {
+                if (event.getCreator().getKeyUserId().equals(user.getKeyUserId())) {
                     eventsUser.add(event);
                 }
             }

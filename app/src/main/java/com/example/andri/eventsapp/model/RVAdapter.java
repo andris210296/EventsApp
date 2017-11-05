@@ -125,18 +125,14 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
                 case R.id.act_edit:
                     Toast.makeText(mContext, "Editar Evento", Toast.LENGTH_SHORT).show();
 
-
                     Intent intent = new Intent(mContext, EventActivity.class);
                     intent.putExtra("user", event.getCreator());
                     intent.putExtra("event",event);
                     intent.putExtra("events" , (Serializable) events);;
                     mContext.startActivity(intent);
 
+                    return true;
 
-                    return true;
-                case R.id.act_delete:
-                    Toast.makeText(mContext, "Deletar Evento", Toast.LENGTH_SHORT).show();
-                    return true;
                 default:
             }
             return false;

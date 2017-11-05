@@ -32,6 +32,7 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
 
     private Button btnNewEvent;
     private Button btnUpdateEvent;
+    private Button btnDeleteEvent;
 
     AlertDialog.Builder dlg;
 
@@ -53,6 +54,9 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
         btnUpdateEvent = (AppCompatButton) findViewById(R.id.btnUpdateEvent);
         btnUpdateEvent.setOnClickListener(this);
 
+        btnDeleteEvent = (AppCompatButton) findViewById(R.id.btnDeleteEvent);
+        btnDeleteEvent.setOnClickListener(this);
+
         Intent intent = getIntent();
         user = (User) intent.getExtras().get("user");
         event = (Event) intent.getExtras().get("event");
@@ -60,6 +64,7 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
         if(event.getKeyEventId() != null){
             fillFields(event);
             btnUpdateEvent.setVisibility(View.VISIBLE);
+            btnDeleteEvent.setVisibility(View.VISIBLE);
             btnNewEvent.setVisibility(View.GONE);
         }
 
@@ -118,6 +123,25 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
                 intent.putExtra("user",user);
                 intent.putExtra("event", event);
                 intent.putExtra("events", (Serializable) events);
+                startActivity(intent);
+
+
+            } catch (Exception e) {
+                openDlg(getString(R.string.exIncorrectlyTypedField));
+            }
+        }
+
+        if (v.getId() == btnDeleteEvent.getId()) {
+
+            try {
+
+                eventM.deleteEvent(event);
+                eventM.getEvents().remove(event);
+
+                Intent intent = new Intent(this, MenuActivity.class);
+                intent.putExtra("user",user);
+                intent.putExtra("event", new Event());
+                intent.putExtra("events", (Serializable) eventM.getEvents());
                 startActivity(intent);
 
 

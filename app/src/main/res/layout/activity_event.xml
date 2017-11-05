@@ -100,6 +100,15 @@
             android:text="@string/sBtnUpdateEvent"
             android:visibility="gone"/>
 
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btnDeleteEvent"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="24dp"
+            android:padding="12dp"
+            android:text="@string/sBtnDeleteEvent"
+            android:visibility="gone"/>
 
 
     </LinearLayout>

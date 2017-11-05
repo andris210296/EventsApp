@@ -42,21 +42,25 @@
                 android:layout_marginLeft="20dp"
                 android:background="@color/cardview_light_background"/>
 
-            <TextView
-                android:id="@+id/txtDateEvent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txtNameEvent"
-                android:layout_toRightOf="@+id/imvEvent"
-                android:text="31/08/2017" />
 
-            <TextView
-                android:id="@+id/txtTimeEvent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txtNameEvent"
-                android:layout_toRightOf="@+id/txtDateEvent"
-                android:text="21:45" />
+
+                <TextView
+                    android:id="@+id/txtTimeEvent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txtNameEvent"
+                    android:layout_toRightOf="@+id/txtDateEvent"
+                    android:layout_marginLeft="20dp"
+                    android:text="21:45" />
+
+                <TextView
+                    android:id="@+id/txtDateEvent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txtNameEvent"
+                    android:layout_toRightOf="@+id/imvEvent"
+                    android:text="31/08/2017" />
+
 
         </RelativeLayout>
 

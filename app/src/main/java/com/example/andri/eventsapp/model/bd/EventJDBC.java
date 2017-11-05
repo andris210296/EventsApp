@@ -82,6 +82,7 @@ public class EventJDBC implements EventDAO, ChildEventListener {
     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
         Event event = dataSnapshot.getValue(Event.class);
         myRef.child(dataSnapshot.getKey()).child("keyEventId").setValue(dataSnapshot.getKey());
+        event.setKeyEventId(dataSnapshot.getKey());
         events.add(event);
     }
 

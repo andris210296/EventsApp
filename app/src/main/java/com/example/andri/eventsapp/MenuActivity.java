@@ -36,6 +36,7 @@ public class MenuActivity extends AppCompatActivity {
         try {
             eventM = new EventModel();
         }catch (Exception e){
+            openDlg(getString(R.string.exBD));
 
         }
 

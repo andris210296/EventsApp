@@ -16,6 +16,7 @@
     <string name="sTimeEvent">Horário do Evento</string>
     <string name="sBtnNewEvent">Criar Evento</string>
     <string name="sBtnUpdateEvent">Alterar Evento</string>
+    <string name="sBtnDeleteEvent">Deletar Evento</string>
 
     <string name="sBtnParticipate">Participar</string>
     <string name="sBtnNotParticipate">Sair</string>
