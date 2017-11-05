@@ -31,11 +31,9 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
     private EditText edtTimeEvent;
 
     private Button btnNewEvent;
-
+    private Button btnUpdateEvent;
 
     AlertDialog.Builder dlg;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +50,19 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
         btnNewEvent = (AppCompatButton) findViewById(R.id.btnNewEvent);
         btnNewEvent.setOnClickListener(this);
 
+        btnUpdateEvent = (AppCompatButton) findViewById(R.id.btnUpdateEvent);
+        btnUpdateEvent.setOnClickListener(this);
+
         Intent intent = getIntent();
         user = (User) intent.getExtras().get("user");
         event = (Event) intent.getExtras().get("event");
+
+        if(event.getKeyEventId() != null){
+            fillFields(event);
+            btnUpdateEvent.setVisibility(View.VISIBLE);
+            btnNewEvent.setVisibility(View.GONE);
+        }
+
         events = (List<Event>) intent.getExtras().getSerializable("events");
 
         try {
@@ -94,6 +102,37 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
             }
         }
 
+        if (v.getId() == btnUpdateEvent.getId()) {
+
+            try {
+                event = new Event(event.getKeyEventId(),
+                        edtNameEvent.getText().toString(),
+                        edtDescriptionEvent.getText().toString(),
+                        edtDateEvent.getText().toString(),
+                        edtTimeEvent.getText().toString(),
+                        event.getCreator(),event.getParticipants());
+
+                eventM.updateEvent(event);
+
+                Intent intent = new Intent(this, MenuActivity.class);
+                intent.putExtra("user",user);
+                intent.putExtra("event", event);
+                intent.putExtra("events", (Serializable) events);
+                startActivity(intent);
+
+
+            } catch (Exception e) {
+                openDlg(getString(R.string.exIncorrectlyTypedField));
+            }
+        }
+
+    }
+
+    public void fillFields(Event event){
+        edtNameEvent.setText(event.getName());
+        edtDescriptionEvent.setText(event.getDescription());
+        edtDateEvent.setText(event.getEventDate());
+        edtTimeEvent.setText(event.getTime());
     }
 
     public void openDlg(String message){

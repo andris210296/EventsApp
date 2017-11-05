@@ -35,6 +35,11 @@ public class EventModel {
 
     }
 
+    public void updateEvent(Event event) throws Exception {
+        eDAO.update(event);
+        updateListEvents();
+    }
+
     public void updateListEvents() throws Exception {
         getEvents().clear();
         List<Event> e = geteDAO().list();

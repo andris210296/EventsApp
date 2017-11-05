@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txtNameEvent"
                 android:layout_toRightOf="@+id/txtDateEvent"
-                android:text=" - 21:45" />
+                android:text="21:45" />
 
         </RelativeLayout>
 
