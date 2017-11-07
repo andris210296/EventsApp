@@ -1,6 +1,7 @@
 package com.example.andri.eventsapp;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import com.example.andri.eventsapp.model.EventModel;
 import com.example.andri.eventsapp.model.User;
 import com.example.andri.eventsapp.model.UserModel;
 
+import java.io.Serializable;
 import java.util.List;
 
 
@@ -159,17 +161,37 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         }
         if(v.getId() == btnDelete.getId()){
 
-            try{
-                setUserLogged(userM.getUser());
-                clearEdts();
-                Intent intent = new Intent(view.getContext(), MenuActivity.class);
-                startActivity(intent);
+            AlertDialog alert;
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setTitle(getString(R.string.sBtnDeleteUser));
+            builder.setMessage(R.string.sQDeleteUser);
+            builder.setNegativeButton(R.string.sBtnCancel, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface arg0, int arg1) {
+                    return;
+                }
+            });
+            builder.setPositiveButton(R.string.sBtnDeleteUser, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface arg0, int arg1) {
+                    try{
+                        setUserLogged(userM.getUser());
+                        clearEdts();
+                        Intent intent = new Intent(view.getContext(), MenuActivity.class);
+                        startActivity(intent);
 
-                userM.delete(userM.getUser());
+                        userM.delete(userM.getUser());
 
-            }catch (Exception e){
-                openDlg(getString(R.string.exDelete));
-            }
+                    }catch (Exception e){
+                        openDlg(getString(R.string.exDelete));
+                    }
+
+                }
+            });
+
+
+            alert = builder.create();
+            alert.show();
+
+
         }
 
     }

@@ -9,6 +9,8 @@
     <string name="sBtnGoBack">Voltar</string>
     <string name="sBtnUpdate">Alterar</string>
     <string name="sBtnDelete">Deletar</string>
+    <string name="sBtnCancel">Cancelar</string>
+    <string name="sBtnDeleteUser">Deletar Usuário</string>
 
     <string name="sNameEvent">Nome do Evento</string>
     <string name="sDescriptionEvent">Descrição do Evento</string>
@@ -17,6 +19,9 @@
     <string name="sBtnNewEvent">Criar Evento</string>
     <string name="sBtnUpdateEvent">Alterar Evento</string>
     <string name="sBtnDeleteEvent">Deletar Evento</string>
+
+    <string name="sQDeleteUser">Você deseja deletar este usuário?</string>
+    <string name="sQDeleteEvent">Você deseja deletar este evento?</string>
 
     <string name="sBtnParticipate">Participar</string>
     <string name="sBtnNotParticipate">Sair</string>

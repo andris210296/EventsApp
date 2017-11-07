@@ -69,6 +69,15 @@ public class UserModel {
         return true;
     }
 
+    public User userFromList(User user){
+        for (User u:users) {
+            if(u.getLogin().equals(user.getLogin())){
+                return u;
+            }
+        }
+        return user;
+    }
+
 
     public void updateListUsers() throws Exception {
         getUsers().clear();

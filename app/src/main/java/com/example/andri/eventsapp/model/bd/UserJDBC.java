@@ -69,6 +69,7 @@ public class UserJDBC implements UserDAO, ChildEventListener {
     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
         User user = dataSnapshot.getValue(User.class);
         myRef.child(dataSnapshot.getKey()).child("keyUserId").setValue(dataSnapshot.getKey());
+        user.setKeyUserId(dataSnapshot.getKey());
         users.add(user);
     }
 

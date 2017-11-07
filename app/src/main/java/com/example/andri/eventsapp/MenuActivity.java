@@ -22,6 +22,7 @@ public class MenuActivity extends AppCompatActivity {
     FragmentTransaction transaction;
 
     User user;
+    UserModel userM;
     EventModel eventM;
 
     AlertDialog.Builder dlg;
@@ -33,15 +34,18 @@ public class MenuActivity extends AppCompatActivity {
 
         dlg = new AlertDialog.Builder(this);
 
-        try {
-            eventM = new EventModel();
-        }catch (Exception e){
-            openDlg(getString(R.string.exBD));
-
-        }
-
         Intent intent = getIntent();
         user = (User) intent.getExtras().get("user");
+
+        try {
+            eventM = new EventModel();
+            userM = new UserModel();
+            userM.updateListUsers();
+            userM.setUser(user);
+
+        }catch (Exception e){
+            openDlg(getString(R.string.exBD));
+        }
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -51,7 +55,7 @@ public class MenuActivity extends AppCompatActivity {
 
         HomeFragment homeFragment = new HomeFragment();
         Bundle arguments = new Bundle();
-        arguments.putSerializable("user" , user);
+        arguments.putSerializable("user" , userM.userFromList(user));
         arguments.putSerializable("events" , (Serializable) eventM.getEvents());
         homeFragment.setArguments(arguments);
 
@@ -77,13 +81,17 @@ public class MenuActivity extends AppCompatActivity {
             fragmentManager = getSupportFragmentManager();
             transaction = fragmentManager.beginTransaction();
 
-            Bundle arguments = new Bundle();
-            arguments.putSerializable("user" , user);
             try {
                 eventM.updateListEvents();
+                userM.updateListUsers();
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+            Bundle arguments = new Bundle();
+            arguments.putSerializable("user" , userM.userFromList(user));
+
             arguments.putSerializable("events" , (Serializable) eventM.getEvents());
 
             HomeFragment homeFragment = new HomeFragment();
