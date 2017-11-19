@@ -32,6 +32,7 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
     private EditText edtDateEvent;
     private EditText edtTimeEvent;
 
+    private Button btnLocation;
     private Button btnNewEvent;
     private Button btnUpdateEvent;
     private Button btnDeleteEvent;
@@ -49,6 +50,9 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
         edtDescriptionEvent = (EditText) findViewById(R.id.edtNewDescriptionEvent);
         edtDateEvent = (EditText) findViewById(R.id.edtNewDateEvent);
         edtTimeEvent = (EditText) findViewById(R.id.edtNewTimeEvent);
+
+        btnLocation = (AppCompatButton) findViewById(R.id.btnLocation);
+        btnLocation.setOnClickListener(this);
 
         btnNewEvent = (AppCompatButton) findViewById(R.id.btnNewEvent);
         btnNewEvent.setOnClickListener(this);
@@ -83,6 +87,25 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
+
+        if (v.getId() == btnLocation.getId()) {
+
+            try {
+
+
+                Intent intent = new Intent(this, MapsActivity.class);
+                intent.putExtra("user", user);
+                intent.putExtra("event", event);
+                intent.putExtra("events", (Serializable) events);
+                startActivity(intent);
+
+
+            } catch (Exception e) {
+                openDlg(getString(R.string.exIncorrectlyTypedField));
+            }
+        }
+
+
         if (v.getId() == btnNewEvent.getId()) {
 
             try {
