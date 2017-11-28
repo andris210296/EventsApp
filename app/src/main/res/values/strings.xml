@@ -22,6 +22,9 @@
     <string name="sBtnDeleteEvent">Deletar Evento</string>
 
     <string name="sMyLocation">Minha atual localização</string>
+    <string name="sSetLocation">Adicionar marcador</string>
+    <string name="sQMyLocation">Você deseja adicionar o marcador aqui?</string>
+    <string name="exLocation">Erro com a localização!</string>
 
     <string name="sQDeleteUser">Você deseja deletar este usuário?</string>
     <string name="sQDeleteEvent">Você deseja deletar este evento?</string>
