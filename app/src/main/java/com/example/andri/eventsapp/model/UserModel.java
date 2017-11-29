@@ -30,9 +30,10 @@ public class UserModel {
 
     }
 
-    public void create(User user) throws Exception{
-        uDAO.create(user);
+    public User create(User user) throws Exception{
+        user = uDAO.create(user);
         updateListUsers();
+        return user;
     }
 
     public void update(User user) throws Exception{
