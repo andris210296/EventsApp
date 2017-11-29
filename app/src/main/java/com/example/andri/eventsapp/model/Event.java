@@ -1,5 +1,7 @@
 package com.example.andri.eventsapp.model;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -20,12 +22,13 @@ public class Event implements Serializable{
     private String time;
     private User creator;
     private List<User> participants;
+    private LatLng eventLocation;
 
     public Event( ){
 
     }
 
-    public Event(String name, String description, String eventDate, String time, User creator){
+    public Event(String name, String description, String eventDate, String time, User creator, LatLng eventLocation){
         setKeyEventId(new String());
         setName(name);
         setDescription(description);
@@ -33,9 +36,10 @@ public class Event implements Serializable{
         setTime(time);
         setCreator(creator);
         setParticipants(new ArrayList<User>());
+        setEventLocation(eventLocation);
     }
 
-    public Event(String keyEventId, String name, String description, String eventDate, String time, User creator, List<User> participants){
+    public Event(String keyEventId, String name, String description, String eventDate, String time, User creator, List<User> participants, LatLng eventLocation){
         setKeyEventId(keyEventId);
         setName(name);
         setDescription(description);
@@ -43,6 +47,7 @@ public class Event implements Serializable{
         setTime(time);
         setCreator(creator);
         setParticipants(participants);
+        setEventLocation(eventLocation);
     }
 
     public String getKeyEventId() {
@@ -109,5 +114,17 @@ public class Event implements Serializable{
 
     public void setParticipants(List<User> participants) {
         this.participants = participants;
+    }
+
+    public void setEventDate(Date eventDate) {
+        this.eventDate = eventDate;
+    }
+
+    public LatLng getEventLocation() {
+        return eventLocation;
+    }
+
+    public void setEventLocation(LatLng eventLocation) {
+        this.eventLocation = eventLocation;
     }
 }

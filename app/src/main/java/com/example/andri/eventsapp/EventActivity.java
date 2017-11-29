@@ -16,6 +16,7 @@ import com.example.andri.eventsapp.model.Event;
 import com.example.andri.eventsapp.model.EventModel;
 import com.example.andri.eventsapp.model.User;
 import com.example.andri.eventsapp.model.UserModel;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.io.Serializable;
 import java.util.List;
@@ -113,7 +114,7 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
                         edtDescriptionEvent.getText().toString(),
                         edtDateEvent.getText().toString(),
                         edtTimeEvent.getText().toString(),
-                        user);
+                        user,new LatLng(0,0));
 
 
                 eventM.getEvents().add(event);
@@ -139,7 +140,8 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
                         edtDescriptionEvent.getText().toString(),
                         edtDateEvent.getText().toString(),
                         edtTimeEvent.getText().toString(),
-                        event.getCreator(), event.getParticipants());
+                        event.getCreator(), event.getParticipants(),
+                        event.getEventLocation());
 
                 eventM.updateEvent(event);
 

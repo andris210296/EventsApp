@@ -1,5 +1,6 @@
 package com.example.andri.eventsapp;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -19,7 +20,9 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.andri.eventsapp.model.Event;
 import com.example.andri.eventsapp.model.GpsTracker;
+import com.example.andri.eventsapp.model.User;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdate;
@@ -32,10 +35,16 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener, GoogleMap.OnMapClickListener {
+
+    private User user;
+    private Event event;
+    private List<Event> events;
 
     private GoogleMap mMap;
     private GpsTracker gps;
@@ -44,10 +53,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private AlertDialog.Builder dlg;
 
-    private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 1;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        dlg = new AlertDialog.Builder(this);
+
+        Intent intent = getIntent();
+        user = (User) intent.getExtras().get("user");
+        event = (Event) intent.getExtras().get("event");
+        events = (List<Event>) intent.getExtras().getSerializable("events");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
@@ -75,6 +90,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.setMyLocationEnabled(true);
         } catch (SecurityException e) {
 
+            openDlg(getString(R.string.exLocation));
         }
 
         myPosition  = new LatLng(gps.getLatitude(), gps.getLongitude());
@@ -105,6 +121,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         builder.setPositiveButton(R.string.sBtnLocation, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface arg0, int arg1) {
                 try{
+
+                    Intent intent = new Intent(MapsActivity.this, MenuActivity.class);
+                    intent.putExtra("user", user);
+                    intent.putExtra("event", event);
+                    intent.putExtra("events", (Serializable) events);
 
                     finish();
 

@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     AlertDialog.Builder dlg;
 
-
     AppCompatButton btnLogin;
     AppCompatButton btnRegister;
 
@@ -52,8 +51,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         edtLogin = (EditText) findViewById(R.id.edtLogin);
         edtPassword = (EditText) findViewById(R.id.edtPassword);
-
-
 
     }
 

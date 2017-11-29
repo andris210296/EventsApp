@@ -19,6 +19,7 @@ import com.example.andri.eventsapp.model.EventModel;
 import com.example.andri.eventsapp.model.RVAdapter;
 import com.example.andri.eventsapp.model.User;
 import com.example.andri.eventsapp.model.UserModel;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -130,17 +131,17 @@ public class AllEventsFragment extends Fragment {
 
         List<Event> allEvents = new ArrayList<>();
         allEvents.add(new Event("Aniversário1","Só uma festa de boas","12/12/1212",
-                " - 21:45",novo));
+                " - 21:45",novo,new LatLng(0,0)));
         allEvents.add(new Event("Aniversário2","Só duas festas de boas","12/12/1212",
-                " - 21:45",novo));
+                " - 21:45",novo,new LatLng(0,0)));
         allEvents.add(new Event("Aniversário3","Só três festas de boas","12/12/1212",
-                " - 21:45",novo));
+                " - 21:45",novo,new LatLng(0,0)));
         allEvents.add(new Event("Aniversário4","Só três festas de boas","12/12/1212",
-                " - 21:45",novo));
+                " - 21:45",novo,new LatLng(0,0)));
         allEvents.add(new Event("Aniversário5","Só três festas de boas","12/12/1212",
-                " - 21:45",novo));
+                " - 21:45",novo,new LatLng(0,0)));
         allEvents.add(new Event("Aniversário6","Só três festas de boas","12/12/1212",
-                " - 21:45",novo));
+                " - 21:45",novo,new LatLng(0,0)));
 
         return allEvents;
 
