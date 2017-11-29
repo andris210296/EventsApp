@@ -71,8 +71,7 @@ public class UserJDBC implements UserDAO, ChildEventListener {
         if(dataSnapshot.exists()){
             for(DataSnapshot ds: dataSnapshot.getChildren()){
                 User user = ds.getValue(User.class);
-                if(user.getKeyUserId() != null)
-                    users.add(user);
+                users.add(user);
             }
         }
     }

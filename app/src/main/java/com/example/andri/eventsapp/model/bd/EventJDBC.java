@@ -19,46 +19,49 @@ import java.util.List;
 
 public class EventJDBC implements EventDAO, ChildEventListener {
 
-    DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
-    private static final String EVENT = "event/";
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference("event");
 
-    List<Event> events = new ArrayList<>();
+    List<Event> events;
 
     public EventJDBC() {
         myRef.addChildEventListener(this);
+        events = new ArrayList<>();
     }
 
     @Override
     public void create(Event event) throws Exception {
-        String key = myRef.push().getKey();
-        event.setKeyEventId(key);
-        myRef.child(EVENT + key).setValue(event);
+        myRef.push().setValue(event);
     }
 
     @Override
     public List list() throws Exception {
+
+
+
         return events;
     }
 
     @Override
     public void update(Event event) throws Exception {
-        myRef.child(EVENT + event.getKeyEventId()).child("keyEventId").setValue(event.getKeyEventId());
-        myRef.child(EVENT + event.getKeyEventId()).child("name").setValue(event.getName());
-        myRef.child(EVENT + event.getKeyEventId()).child("description").setValue(event.getDescription());
-        myRef.child(EVENT + event.getKeyEventId()).child("eventDate").setValue(event.getEventDate());
-        myRef.child(EVENT + event.getKeyEventId()).child("time").setValue(event.getTime());
-        myRef.child(EVENT + event.getKeyEventId()).child("creator").setValue(event.getCreator());
-        myRef.child(EVENT + event.getKeyEventId()).child("participants").setValue(event.getParticipants());
+        myRef.child(event.getKeyEventId()).child("keyEventId").setValue(event.getKeyEventId());
+        myRef.child(event.getKeyEventId()).child("name").setValue(event.getName());
+        myRef.child(event.getKeyEventId()).child("description").setValue(event.getDescription());
+        myRef.child(event.getKeyEventId()).child("eventDate").setValue(event.getEventDate());
+        myRef.child(event.getKeyEventId()).child("time").setValue(event.getTime());
+        myRef.child(event.getKeyEventId()).child("creator").setValue(event.getCreator());
+        myRef.child(event.getKeyEventId()).child("participants").setValue(event.getParticipants());
 
     }
 
     @Override
     public void delete(Event event) throws Exception {
-        myRef.child(EVENT + event.getKeyEventId()).removeValue();
+        myRef.child(event.getKeyEventId()).removeValue();
     }
 
     @Override
     public void participate(User user, Event event) throws Exception {
+
 
     }
 
@@ -77,13 +80,10 @@ public class EventJDBC implements EventDAO, ChildEventListener {
 
     @Override
     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-        if(dataSnapshot.exists()){
-            for(DataSnapshot ds: dataSnapshot.getChildren()){
-                Event event = ds.getValue(Event.class);
-                if(event.getKeyEventId() != null)
-                    events.add(event);
-            }
-        }
+        Event event = dataSnapshot.getValue(Event.class);
+        myRef.child(dataSnapshot.getKey()).child("keyEventId").setValue(dataSnapshot.getKey());
+        event.setKeyEventId(dataSnapshot.getKey());
+        events.add(event);
     }
 
     @Override
