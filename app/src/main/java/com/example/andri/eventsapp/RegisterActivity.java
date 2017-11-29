@@ -70,7 +70,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 if(userM.loginIsUnique(user.getLogin())) {
 
                     userM.getUsers().add(user);
-                    user = userM.create(user);
+                    userM.create(user);
                     userM.setUser(user);
 
                     clearEdts();

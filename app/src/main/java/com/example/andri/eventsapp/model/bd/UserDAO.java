@@ -9,7 +9,7 @@ import java.util.List;
  */
 
 public interface UserDAO {
-    public User create(User user) throws Exception;
+    public void create(User user) throws Exception;
 
     public User getUser(String keyUserId ) throws Exception;
 

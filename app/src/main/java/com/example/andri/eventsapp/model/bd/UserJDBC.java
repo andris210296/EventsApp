@@ -16,8 +16,9 @@ import java.util.List;
 
 public class UserJDBC implements UserDAO, ChildEventListener {
 
-    DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
-    private static final String USER = "user/";
+
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference("user");
 
     List<User> users = new ArrayList<>();
 
@@ -26,25 +27,22 @@ public class UserJDBC implements UserDAO, ChildEventListener {
     }
 
     @Override
-    public User create(User user) {
-        String key = myRef.push().getKey();
-        user.setKeyUserId(key);
-        myRef.child(USER + key).setValue(user);
-        return user;
+    public void create(User user) {
+        myRef.push().setValue(user);
     }
 
     @Override
     public void delete(User user) {
-        myRef.child(USER + user.getKeyUserId()).removeValue();
+        myRef.child(user.getKeyUserId()).removeValue();
     }
 
     @Override
     public void update(User user) {
-        myRef.child(USER + user.getKeyUserId()).child("keyUserId").setValue(user.getKeyUserId());
-        myRef.child(USER + user.getKeyUserId()).child("login").setValue(user.getLogin());
-        myRef.child(USER + user.getKeyUserId()).child("password").setValue(user.getPassword());
-        myRef.child(USER + user.getKeyUserId()).child("email").setValue(user.getEmail());
-        myRef.child(USER + user.getKeyUserId()).child("userDate").setValue(user.getUserDate());
+        myRef.child(user.getKeyUserId()).child("keyUserId").setValue(user.getKeyUserId());
+        myRef.child(user.getKeyUserId()).child("login").setValue(user.getLogin());
+        myRef.child(user.getKeyUserId()).child("password").setValue(user.getPassword());
+        myRef.child(user.getKeyUserId()).child("email").setValue(user.getEmail());
+        myRef.child(user.getKeyUserId()).child("userDate").setValue(user.getUserDate());
 
     }
 
@@ -55,6 +53,7 @@ public class UserJDBC implements UserDAO, ChildEventListener {
 
     @Override
     public User getUser(String keyUserId) {
+
         for (User user : users) {
             if (user.getKeyUserId().matches(keyUserId)) {
                 return user;
@@ -68,12 +67,10 @@ public class UserJDBC implements UserDAO, ChildEventListener {
 
     @Override
     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-        if(dataSnapshot.exists()){
-            for(DataSnapshot ds: dataSnapshot.getChildren()){
-                User user = ds.getValue(User.class);
-                users.add(user);
-            }
-        }
+        User user = dataSnapshot.getValue(User.class);
+        myRef.child(dataSnapshot.getKey()).child("keyUserId").setValue(dataSnapshot.getKey());
+        user.setKeyUserId(dataSnapshot.getKey());
+        users.add(user);
     }
 
     @Override
