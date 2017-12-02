@@ -131,17 +131,17 @@ public class AllEventsFragment extends Fragment {
 
         List<Event> allEvents = new ArrayList<>();
         allEvents.add(new Event("Aniversário1","Só uma festa de boas","12/12/1212",
-                " - 21:45",novo,new LatLng(0,0)));
+                " - 21:45",novo,0,0));
         allEvents.add(new Event("Aniversário2","Só duas festas de boas","12/12/1212",
-                " - 21:45",novo,new LatLng(0,0)));
+                " - 21:45",novo,0,0));
         allEvents.add(new Event("Aniversário3","Só três festas de boas","12/12/1212",
-                " - 21:45",novo,new LatLng(0,0)));
+                " - 21:45",novo,0,0));
         allEvents.add(new Event("Aniversário4","Só três festas de boas","12/12/1212",
-                " - 21:45",novo,new LatLng(0,0)));
+                " - 21:45",novo,0,0));
         allEvents.add(new Event("Aniversário5","Só três festas de boas","12/12/1212",
-                " - 21:45",novo,new LatLng(0,0)));
+                " - 21:45",novo,0,0));
         allEvents.add(new Event("Aniversário6","Só três festas de boas","12/12/1212",
-                " - 21:45",novo,new LatLng(0,0)));
+                " - 21:45",novo,0,0));
 
         return allEvents;
 
@@ -167,7 +167,7 @@ public class AllEventsFragment extends Fragment {
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
-            Toast.makeText(context,"AllEvents Fragment Attached",Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,getString(R.string.title_all_events),Toast.LENGTH_SHORT).show();
         }
     }
 

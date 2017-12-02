@@ -51,6 +51,8 @@ public class EventJDBC implements EventDAO, ChildEventListener {
         myRef.child(event.getKeyEventId()).child("time").setValue(event.getTime());
         myRef.child(event.getKeyEventId()).child("creator").setValue(event.getCreator());
         myRef.child(event.getKeyEventId()).child("participants").setValue(event.getParticipants());
+        myRef.child(event.getKeyEventId()).child("latitude").setValue(event.getLatitude());
+        myRef.child(event.getKeyEventId()).child("longitude").setValue(event.getLongitude());
 
     }
 
@@ -99,6 +101,8 @@ public class EventJDBC implements EventDAO, ChildEventListener {
                 event.setDescription(eventUpdated.getDescription());
                 event.setTime(eventUpdated.getTime());
                 event.setParticipants(eventUpdated.getParticipants());
+                event.setLatitude(eventUpdated.getLatitude());
+                event.setLongitude(eventUpdated.getLongitude());
             }
         }
 

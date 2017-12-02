@@ -32,6 +32,8 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
     private EditText edtDescriptionEvent;
     private EditText edtDateEvent;
     private EditText edtTimeEvent;
+    private EditText edtLatitudeEvent;
+    private EditText edtLongitudeEvent;
 
     private Button btnLocation;
     private Button btnNewEvent;
@@ -51,6 +53,8 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
         edtDescriptionEvent = (EditText) findViewById(R.id.edtNewDescriptionEvent);
         edtDateEvent = (EditText) findViewById(R.id.edtNewDateEvent);
         edtTimeEvent = (EditText) findViewById(R.id.edtNewTimeEvent);
+        edtLatitudeEvent = (EditText) findViewById(R.id.edtNewLatitudeEvent);
+        edtLongitudeEvent = (EditText) findViewById(R.id.edtNewLongitudeEvent);
 
         btnLocation = (AppCompatButton) findViewById(R.id.btnLocation);
         btnLocation.setOnClickListener(this);
@@ -75,6 +79,11 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
             btnNewEvent.setVisibility(View.GONE);
         }
 
+        //This line means that the MapsActivity was opened and a location was set, so it's not in an update moment
+        if(event.getKeyEventId() == null && event.getLongitude() != null && event.getLongitude() != null){
+            fillFields(event);
+        }
+
         events = (List<Event>) intent.getExtras().getSerializable("events");
 
         try {
@@ -93,6 +102,11 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
 
             try {
 
+                event = new Event(edtNameEvent.getText().toString(),
+                        edtDescriptionEvent.getText().toString(),
+                        edtDateEvent.getText().toString(),
+                        edtTimeEvent.getText().toString(),
+                        user);
 
                 Intent intent = new Intent(this, MapsActivity.class);
                 intent.putExtra("user", user);
@@ -114,7 +128,8 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
                         edtDescriptionEvent.getText().toString(),
                         edtDateEvent.getText().toString(),
                         edtTimeEvent.getText().toString(),
-                        user,new LatLng(0,0));
+                        user,Double.valueOf(edtLatitudeEvent.getText().toString()),
+                        Double.valueOf(edtLongitudeEvent.getText().toString()));
 
 
                 eventM.getEvents().add(event);
@@ -141,7 +156,8 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
                         edtDateEvent.getText().toString(),
                         edtTimeEvent.getText().toString(),
                         event.getCreator(), event.getParticipants(),
-                        event.getEventLocation());
+                        Double.valueOf(edtLatitudeEvent.getText().toString()),
+                        Double.valueOf(edtLongitudeEvent.getText().toString()));
 
                 eventM.updateEvent(event);
 
@@ -202,6 +218,10 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
         edtDescriptionEvent.setText(event.getDescription());
         edtDateEvent.setText(event.getEventDate());
         edtTimeEvent.setText(event.getTime());
+        edtLatitudeEvent.setText(String.valueOf(event.getLatitude()));
+        edtLongitudeEvent.setText(String.valueOf(event.getLongitude()));
+        edtLatitudeEvent.setVisibility(View.VISIBLE);
+        edtLongitudeEvent.setVisibility(View.VISIBLE);
     }
 
     public void openDlg(String message) {

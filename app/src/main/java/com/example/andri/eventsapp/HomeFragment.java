@@ -236,7 +236,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
-            Toast.makeText(context,"Home Fragment Attached",Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,getString(R.string.title_home),Toast.LENGTH_SHORT).show();
         }
     }
 

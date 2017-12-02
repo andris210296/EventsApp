@@ -68,7 +68,7 @@ public class UserJDBC implements UserDAO, ChildEventListener {
 
     @Override
     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-        if(dataSnapshot.exists()){
+        if(dataSnapshot.exists() && !dataSnapshot.getKey().equals("event")){
             for(DataSnapshot ds: dataSnapshot.getChildren()){
                 User user = ds.getValue(User.class);
                 users.add(user);

@@ -16,6 +16,8 @@
     <string name="sDescriptionEvent">Descrição do Evento</string>
     <string name="sDateEvent">Data do Evento</string>
     <string name="sTimeEvent">Horário do Evento</string>
+    <string name="sLatitudeEvent">Latitude</string>
+    <string name="sLongitudeEvent">Longitude</string>
     <string name="sBtnLocation">Adicionar Localização</string>
     <string name="sBtnNewEvent">Criar Evento</string>
     <string name="sBtnUpdateEvent">Alterar Evento</string>
@@ -43,7 +45,7 @@
 
     <string name="title_act_new_register">Cadastro</string>
     <string name="title_activity_menu">MenuActivity</string>
-    <string name="title_home">Home</string>
+    <string name="title_home">Minha Home</string>
     <string name="title_my_events">Meus Eventos</string>
     <string name="title_all_events">Todos os Eventos</string>
     <string name="title_activity_event">Evento</string>

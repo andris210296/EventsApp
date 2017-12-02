@@ -22,24 +22,39 @@ public class Event implements Serializable{
     private String time;
     private User creator;
     private List<User> participants;
-    private LatLng eventLocation;
+    private Double latitude;
+    private Double longitude;
+
 
     public Event( ){
 
     }
 
-    public Event(String name, String description, String eventDate, String time, User creator, LatLng eventLocation){
-        setKeyEventId(new String());
+    public Event(String name, String description, String eventDate, String time, User creator){
+        setKeyEventId(null);
         setName(name);
         setDescription(description);
         setEventDate(eventDate);
         setTime(time);
         setCreator(creator);
         setParticipants(new ArrayList<User>());
-        setEventLocation(eventLocation);
+        setLatitude(null);
+        setLongitude(null);
     }
 
-    public Event(String keyEventId, String name, String description, String eventDate, String time, User creator, List<User> participants, LatLng eventLocation){
+    public Event(String name, String description, String eventDate, String time, User creator, double latitude, double longitude){
+        setKeyEventId(null);
+        setName(name);
+        setDescription(description);
+        setEventDate(eventDate);
+        setTime(time);
+        setCreator(creator);
+        setParticipants(new ArrayList<User>());
+        setLatitude(latitude);
+        setLongitude(longitude);
+    }
+
+    public Event(String keyEventId, String name, String description, String eventDate, String time, User creator, List<User> participants, double latitude, double longitude){
         setKeyEventId(keyEventId);
         setName(name);
         setDescription(description);
@@ -47,8 +62,11 @@ public class Event implements Serializable{
         setTime(time);
         setCreator(creator);
         setParticipants(participants);
-        setEventLocation(eventLocation);
+        setLatitude(latitude);
+        setLongitude(longitude);
     }
+
+
 
     public String getKeyEventId() {
         return keyEventId;
@@ -116,15 +134,19 @@ public class Event implements Serializable{
         this.participants = participants;
     }
 
-    public void setEventDate(Date eventDate) {
-        this.eventDate = eventDate;
+    public Double getLatitude() {
+        return latitude;
     }
 
-    public LatLng getEventLocation() {
-        return eventLocation;
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
     }
 
-    public void setEventLocation(LatLng eventLocation) {
-        this.eventLocation = eventLocation;
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 }

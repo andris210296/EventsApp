@@ -193,7 +193,7 @@ public class MyEventsFragment extends Fragment implements View.OnClickListener {
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
-            Toast.makeText(context, "MyEvents Fragment Attached", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, getString(R.string.title_my_events), Toast.LENGTH_SHORT).show();
         }
     }
 

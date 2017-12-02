@@ -18,6 +18,7 @@ import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.andri.eventsapp.model.Event;
@@ -46,10 +47,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Event event;
     private List<Event> events;
 
+    private Marker myMarker;
     private GoogleMap mMap;
     private GpsTracker gps;
     private LatLng myPosition;
+    private LatLng myMarkerPosition;
     float zoomLevel;
+
+
 
     private AlertDialog.Builder dlg;
 
@@ -89,14 +94,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         try {
             mMap.setMyLocationEnabled(true);
         } catch (SecurityException e) {
-
             openDlg(getString(R.string.exLocation));
         }
 
         myPosition  = new LatLng(gps.getLatitude(), gps.getLongitude());
 
         zoomLevel = 16.0f;
-        //mMap.addMarker(new MarkerOptions().position(myPosition).title(getString(R.string.sMyLocation)));
+
+        // Adds a marker if exists a location on event
+        if(event.getLatitude() != null && event.getLongitude() != null) {
+            myMarkerPosition = new LatLng(event.getLatitude(), event.getLongitude());
+            mMap.addMarker(new MarkerOptions().position(myMarkerPosition).title(getString(R.string.sMyLocation)));
+            zoomLevel = 10.0f;
+        }
+
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPosition,zoomLevel));
 
         mMap.setOnMapClickListener(this);
@@ -108,7 +119,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapClick(final LatLng latLng) {
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,zoomLevel));
-        Marker marker = mMap.addMarker(new MarkerOptions().position(latLng).title(getString(R.string.sMyLocation)));
+        myMarker= mMap.addMarker(new MarkerOptions().position(latLng).title(getString(R.string.sMyLocation)));
         AlertDialog alert;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.sSetLocation));
@@ -121,11 +132,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         builder.setPositiveButton(R.string.sBtnLocation, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface arg0, int arg1) {
                 try{
+                    event.setLatitude(latLng.latitude);
+                    event.setLongitude(latLng.longitude);
 
-                    Intent intent = new Intent(MapsActivity.this, MenuActivity.class);
+                    Intent intent = new Intent(getBaseContext(),EventActivity.class);
                     intent.putExtra("user", user);
                     intent.putExtra("event", event);
                     intent.putExtra("events", (Serializable) events);
+
+                    startActivity(intent);
 
                     finish();
 
@@ -138,7 +153,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         alert = builder.create();
         alert.show();
 
-        marker.remove();
+        myMarker.remove();
     }
 
     @Override
