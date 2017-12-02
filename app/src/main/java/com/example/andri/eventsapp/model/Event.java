@@ -54,6 +54,18 @@ public class Event implements Serializable{
         setLongitude(longitude);
     }
 
+    public Event(String keyEventId,String name, String description, String eventDate, String time, User creator, double latitude, double longitude){
+        setKeyEventId(keyEventId);
+        setName(name);
+        setDescription(description);
+        setEventDate(eventDate);
+        setTime(time);
+        setCreator(creator);
+        setParticipants(new ArrayList<User>());
+        setLatitude(latitude);
+        setLongitude(longitude);
+    }
+
     public Event(String keyEventId, String name, String description, String eventDate, String time, User creator, List<User> participants, double latitude, double longitude){
         setKeyEventId(keyEventId);
         setName(name);

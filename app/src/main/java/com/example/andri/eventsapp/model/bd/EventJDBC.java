@@ -49,6 +49,8 @@ public class EventJDBC implements EventDAO, ChildEventListener {
         myRef.child(EVENT + event.getKeyEventId()).child("time").setValue(event.getTime());
         myRef.child(EVENT + event.getKeyEventId()).child("creator").setValue(event.getCreator());
         myRef.child(EVENT + event.getKeyEventId()).child("participants").setValue(event.getParticipants());
+        myRef.child(EVENT + event.getKeyEventId()).child("latitude").setValue(event.getLatitude());
+        myRef.child(EVENT + event.getKeyEventId()).child("longitude").setValue(event.getLongitude());
 
     }
 
@@ -80,27 +82,28 @@ public class EventJDBC implements EventDAO, ChildEventListener {
         if(dataSnapshot.exists() && !dataSnapshot.getKey().equals("user")){
             for(DataSnapshot ds: dataSnapshot.getChildren()){
                 Event event = ds.getValue(Event.class);
-                if(event.getKeyEventId() != null)
-                    events.add(event);
+                events.add(event);
             }
         }
     }
 
     @Override
     public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-        for (Event event : events) {
-            if (event.getKeyEventId().matches(dataSnapshot.getKey())) {
-                Event eventUpdated = dataSnapshot.getValue(Event.class);
+        if(dataSnapshot.exists() && !dataSnapshot.getKey().equals("user")) {
+            for (Event event : events) {
+                if (event.getKeyEventId().matches(dataSnapshot.getKey())) {
+                    Event eventUpdated = dataSnapshot.getValue(Event.class);
 
-                event.setKeyEventId(dataSnapshot.getKey());
-                event.setCreator(eventUpdated.getCreator());
-                event.setEventDate(eventUpdated.getEventDate());
-                event.setName(eventUpdated.getName());
-                event.setDescription(eventUpdated.getDescription());
-                event.setTime(eventUpdated.getTime());
-                event.setParticipants(eventUpdated.getParticipants());
-                event.setLatitude(eventUpdated.getLatitude());
-                event.setLongitude(eventUpdated.getLongitude());
+                    event.setKeyEventId(dataSnapshot.getKey());
+                    event.setCreator(eventUpdated.getCreator());
+                    event.setEventDate(eventUpdated.getEventDate());
+                    event.setName(eventUpdated.getName());
+                    event.setDescription(eventUpdated.getDescription());
+                    event.setTime(eventUpdated.getTime());
+                    event.setParticipants(eventUpdated.getParticipants());
+                    event.setLatitude(eventUpdated.getLatitude());
+                    event.setLongitude(eventUpdated.getLongitude());
+                }
             }
         }
 
@@ -108,9 +111,11 @@ public class EventJDBC implements EventDAO, ChildEventListener {
 
     @Override
     public void onChildRemoved(DataSnapshot dataSnapshot) {
-        for (Event event : events) {
-            if (event.getKeyEventId().matches(dataSnapshot.getKey())) {
-                events.remove(event);
+        if(dataSnapshot.exists() && !dataSnapshot.getKey().equals("user")) {
+            for (Event event : events) {
+                if (event.getKeyEventId().matches(dataSnapshot.getKey())) {
+                    events.remove(event);
+                }
             }
         }
 

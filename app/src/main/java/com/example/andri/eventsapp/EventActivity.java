@@ -80,7 +80,7 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
         }
 
         //This line means that the MapsActivity was opened and a location was set, so it's not in an update moment
-        if(event.getKeyEventId() == null && event.getLongitude() != null && event.getLongitude() != null){
+        if (event.getKeyEventId() == null && event.getLongitude() != null && event.getLongitude() != null) {
             fillFields(event);
         }
 
@@ -102,11 +102,24 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
 
             try {
 
-                event = new Event(edtNameEvent.getText().toString(),
-                        edtDescriptionEvent.getText().toString(),
-                        edtDateEvent.getText().toString(),
-                        edtTimeEvent.getText().toString(),
-                        user);
+                // Verifies if already exists location on event, which means that,
+                // if exists, when the MapsActivy open, it will mark on the map the location
+                if (event.getLatitude() == null && event.getLongitude() == null) {
+
+                    event = new Event(edtNameEvent.getText().toString(),
+                            edtDescriptionEvent.getText().toString(),
+                            edtDateEvent.getText().toString(),
+                            edtTimeEvent.getText().toString(),
+                            user);
+                }else{
+                    event = new Event(event.getKeyEventId(),edtNameEvent.getText().toString(),
+                            edtDescriptionEvent.getText().toString(),
+                            edtDateEvent.getText().toString(),
+                            edtTimeEvent.getText().toString(),
+                            user,Double.valueOf(edtLatitudeEvent.getText().toString()),
+                            Double.valueOf(edtLongitudeEvent.getText().toString()));
+
+                }
 
                 Intent intent = new Intent(this, MapsActivity.class);
                 intent.putExtra("user", user);
@@ -128,7 +141,7 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
                         edtDescriptionEvent.getText().toString(),
                         edtDateEvent.getText().toString(),
                         edtTimeEvent.getText().toString(),
-                        user,Double.valueOf(edtLatitudeEvent.getText().toString()),
+                        user, Double.valueOf(edtLatitudeEvent.getText().toString()),
                         Double.valueOf(edtLongitudeEvent.getText().toString()));
 
 
@@ -181,7 +194,7 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
             builder.setMessage(R.string.sQDeleteEvent);
             builder.setNegativeButton(R.string.sBtnCancel, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface arg0, int arg1) {
-                   return;
+                    return;
                 }
             });
             builder.setPositiveButton(R.string.sBtnDeleteEvent, new DialogInterface.OnClickListener() {
@@ -206,7 +219,6 @@ public class EventActivity extends AppCompatActivity implements View.OnClickList
 
             alert = builder.create();
             alert.show();
-
 
 
         }

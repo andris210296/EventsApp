@@ -139,10 +139,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     intent.putExtra("user", user);
                     intent.putExtra("event", event);
                     intent.putExtra("events", (Serializable) events);
-
-                    startActivity(intent);
-
                     finish();
+                    startActivity(intent);
 
                 }catch (Exception e){
                     openDlg(getString(R.string.exLocation));
