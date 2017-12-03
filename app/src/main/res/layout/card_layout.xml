@@ -14,21 +14,22 @@
             android:layout_height="wrap_content"
             android:padding="16dp">
 
-            <ImageView
-                android:id="@+id/imvEvent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <com.google.android.gms.maps.MapView
+                android:id="@+id/mapView"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginRight="16dp"
-                android:src="@mipmap/ic_launcher" />
+                app:liteMode="true"
+                app:mapType="normal" />
 
             <TextView
                 android:id="@+id/txtNameEvent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/imvEvent"
+                android:layout_toRightOf="@+id/mapView"
                 android:text="NomeEvento"
                 android:textSize="30sp" />
 
@@ -58,7 +59,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txtNameEvent"
-                    android:layout_toRightOf="@+id/imvEvent"
+                    android:layout_toRightOf="@+id/mapView"
                     android:text="31/08/2017" />
 
 

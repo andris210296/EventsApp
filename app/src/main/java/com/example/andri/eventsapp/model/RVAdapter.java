@@ -18,6 +18,12 @@ import android.widget.Toast;
 
 import com.example.andri.eventsapp.EventActivity;
 import com.example.andri.eventsapp.R;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.Serializable;
 import java.util.List;
@@ -30,6 +36,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
 
     private Event event;
     private List<Event> events;
+    private GoogleMap mMap;
 
     private Context mContext;
 
@@ -45,7 +52,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
         TextView txtNameEvent;
         TextView txtDateEvent;
         TextView txtTimeEvent;
-        ImageView imvEvent;
+        MapView mapView;
         ImageButton imbOpts;
 
 
@@ -55,7 +62,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
             txtNameEvent = (TextView) itemView.findViewById(R.id.txtNameEvent);
             txtDateEvent = (TextView) itemView.findViewById(R.id.txtDateEvent);
             txtTimeEvent = (TextView) itemView.findViewById(R.id.txtTimeEvent);
-            imvEvent = (ImageView) itemView.findViewById(R.id.imvEvent);
+            mapView = (MapView) itemView.findViewById(R.id.mapView);
             imbOpts = (ImageButton) itemView.findViewById(R.id.imbOpts);
 
         }
@@ -72,7 +79,22 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
         eventViewHolder.txtNameEvent.setText(events.get(i).getName());
         eventViewHolder.txtDateEvent.setText(events.get(i).getEventDate());
         eventViewHolder.txtTimeEvent.setText(events.get(i).getTime());
-        eventViewHolder.imvEvent.setImageResource(R.mipmap.ic_launcher);
+        eventViewHolder.mapView.onCreate(null);
+
+        eventViewHolder.mapView.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                mMap = googleMap;
+
+                mMap.getUiSettings().setMapToolbarEnabled(false);
+                LatLng myPosition = new LatLng(events.get(i).getLatitude(), events.get(i).getLongitude());
+                mMap.addMarker(new MarkerOptions().position(myPosition).title(mContext.getString(R.string.sMyLocation)));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPosition,13.0f));
+
+            }
+        });
+
+
 
         eventViewHolder.imbOpts.setOnClickListener(new View.OnClickListener(){
 
