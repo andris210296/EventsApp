@@ -1,6 +1,5 @@
 package com.example.andri.eventsapp.model;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
@@ -12,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,7 +30,7 @@ import java.util.List;
  * Created by andri on 31/08/2017.
  */
 
-public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
+public class RVAdapterMyEvents extends RecyclerView.Adapter<RVAdapterMyEvents.EventViewHolder> {
 
     private Event event;
     private List<Event> events;
@@ -41,7 +39,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
     private Context mContext;
 
 
-    public RVAdapter(List<Event> events, Context mContext) {
+    public RVAdapterMyEvents(List<Event> events, Context mContext) {
         this.events = events;
         this.mContext = mContext;
     }
@@ -85,16 +83,12 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 mMap = googleMap;
-
                 mMap.getUiSettings().setMapToolbarEnabled(false);
                 LatLng myPosition = new LatLng(events.get(i).getLatitude(), events.get(i).getLongitude());
-                mMap.addMarker(new MarkerOptions().position(myPosition).title(mContext.getString(R.string.sMyLocation)));
+                mMap.addMarker(new MarkerOptions().position(myPosition).title(mContext.getString(R.string.sEventLocation)));
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPosition,13.0f));
-
             }
         });
-
-
 
         eventViewHolder.imbOpts.setOnClickListener(new View.OnClickListener(){
 
@@ -120,7 +114,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
         this.event = event;
         PopupMenu popup = new PopupMenu(mContext, view);
         MenuInflater inflater = popup.getMenuInflater();
-        inflater.inflate(R.menu.menu_event, popup.getMenu());
+        inflater.inflate(R.menu.menu_event_my_events, popup.getMenu());
         popup.setOnMenuItemClickListener(new MyMenuItemClickListener());
         popup.show();
     }
@@ -138,14 +132,11 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
             switch (menuItem.getItemId()) {
-                case R.id.act_participate:
-                    Toast.makeText(mContext, "Participar", Toast.LENGTH_SHORT).show();
-                    return true;
                 case R.id.act_not_participate:
-                    Toast.makeText(mContext, "Sair do Evento", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, mContext.getString(R.string.sBtnNotParticipate), Toast.LENGTH_SHORT).show();
                     return true;
                 case R.id.act_edit:
-                    Toast.makeText(mContext, "Editar Evento", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, mContext.getString(R.string.sBtnUpdate), Toast.LENGTH_SHORT).show();
 
                     Intent intent = new Intent(mContext, EventActivity.class);
                     intent.putExtra("user", event.getCreator());

@@ -11,9 +11,5 @@
         android:id="@+id/act_not_participate"
         android:orderInCategory="101"
         android:title="@string/sBtnNotParticipate" />
-    <item
-        android:id="@+id/act_edit"
-        android:orderInCategory="102"
-        android:title="@string/sBtnUpdate" />
 
 </menu>

@@ -1,7 +1,5 @@
 package com.example.andri.eventsapp;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -13,23 +11,17 @@ import android.support.v7.widget.*;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.andri.eventsapp.model.Event;
 import com.example.andri.eventsapp.model.EventModel;
-import com.example.andri.eventsapp.model.RVAdapter;
+import com.example.andri.eventsapp.model.RVAdapterMyEvents;
 import com.example.andri.eventsapp.model.User;
 import com.example.andri.eventsapp.model.UserModel;
-import com.example.andri.eventsapp.model.bd.EventDAO;
-import com.example.andri.eventsapp.model.bd.EventJDBC;
 
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import static java.lang.Thread.sleep;
 
@@ -135,10 +127,8 @@ public class MyEventsFragment extends Fragment implements View.OnClickListener {
         fabNewEvent = (FloatingActionButton) view.findViewById(R.id.fabAddEvent);
         fabNewEvent.setOnClickListener(this);
 
-
         try {
-
-            RVAdapter adapter = new RVAdapter(eventM.myEventsList(user),view.getContext());
+            RVAdapterMyEvents adapter = new RVAdapterMyEvents(eventM.myEventsList(user),view.getContext());
             rv.setAdapter(adapter);
 
         } catch (Exception e) {

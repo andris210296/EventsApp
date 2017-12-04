@@ -45,6 +45,16 @@ public class EventModel {
         updateListEvents();
     }
 
+    public void participateEvent(User user, Event event)throws Exception{
+        eDAO.participate(user, event);
+        updateListEvents();
+    }
+
+    public void leaveEvent(User user, Event event)throws Exception{
+        eDAO.leave(user, event);
+        updateListEvents();
+    }
+
     public void updateListEvents() throws Exception {
         getEvents().clear();
         List<Event> e = geteDAO().list();
@@ -63,7 +73,7 @@ public class EventModel {
         List<Event> eventsUser = new ArrayList<>();
         if (!getEvents().isEmpty()) {
             for (Event event : getEvents()) {
-                if (event.getCreator().getKeyUserId().equals(user.getKeyUserId())) {
+                if (event.getCreator().getKeyUserId().equals(user.getKeyUserId()) || event.getParticipants().containsKey(user.getKeyUserId())) {
                     eventsUser.add(event);
                 }
             }

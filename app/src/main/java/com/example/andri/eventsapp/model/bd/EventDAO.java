@@ -10,18 +10,16 @@ import java.util.List;
  * Created by andri on 16/09/2017.
  */
 
-public interface EventDAO{
-    public void create(Event event)throws Exception;
+public interface EventDAO {
+    void create(Event event) throws Exception;
 
-    public List list()throws Exception;
+    List list() throws Exception;
 
-    public void update(Event event)throws Exception;
+    void update(Event event) throws Exception;
 
-    public void delete(Event event) throws Exception;
+    void delete(Event event) throws Exception;
 
-    public void participate(User user, Event event ) throws Exception;
+    void participate(User user, Event event) throws Exception;
 
-    public List participants(Event event)throws Exception;
-
-    public void leave(User user, Event event ) throws Exception;
+    void leave(User user, Event event) throws Exception;
 }

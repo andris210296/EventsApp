@@ -7,9 +7,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +19,7 @@ public class EventJDBC implements EventDAO, ChildEventListener {
 
     DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
     private static final String EVENT = "event/";
+    private static final String PARTICIPANTS = "participants/";
 
     List<Event> events = new ArrayList<>();
 
@@ -61,17 +60,13 @@ public class EventJDBC implements EventDAO, ChildEventListener {
 
     @Override
     public void participate(User user, Event event) throws Exception {
+        myRef.child(EVENT + event.getKeyEventId()).child(PARTICIPANTS + user.getKeyUserId()).setValue(user.getKeyUserId());
 
-    }
-
-    @Override
-    public List participants(Event event) throws Exception {
-        return null;
     }
 
     @Override
     public void leave(User user, Event event) throws Exception {
-
+        myRef.child(EVENT + event.getKeyEventId()).child(PARTICIPANTS + user.getKeyUserId()).removeValue();
     }
 
 
@@ -79,8 +74,8 @@ public class EventJDBC implements EventDAO, ChildEventListener {
 
     @Override
     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-        if(dataSnapshot.exists() && !dataSnapshot.getKey().equals("user")){
-            for(DataSnapshot ds: dataSnapshot.getChildren()){
+        if (dataSnapshot.exists() && !dataSnapshot.getKey().equals("user")) {
+            for (DataSnapshot ds : dataSnapshot.getChildren()) {
                 Event event = ds.getValue(Event.class);
                 events.add(event);
             }
@@ -89,20 +84,22 @@ public class EventJDBC implements EventDAO, ChildEventListener {
 
     @Override
     public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-        if(dataSnapshot.exists() && !dataSnapshot.getKey().equals("user")) {
-            for (Event event : events) {
-                if (event.getKeyEventId().matches(dataSnapshot.getKey())) {
-                    Event eventUpdated = dataSnapshot.getValue(Event.class);
+        if (dataSnapshot.exists() && !dataSnapshot.getKey().equals("user")) {
+            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                for (Event event : events) {
+                    if (event.getKeyEventId().matches(ds.getKey())) {
+                        Event eventUpdated = ds.getValue(Event.class);
 
-                    event.setKeyEventId(dataSnapshot.getKey());
-                    event.setCreator(eventUpdated.getCreator());
-                    event.setEventDate(eventUpdated.getEventDate());
-                    event.setName(eventUpdated.getName());
-                    event.setDescription(eventUpdated.getDescription());
-                    event.setTime(eventUpdated.getTime());
-                    event.setParticipants(eventUpdated.getParticipants());
-                    event.setLatitude(eventUpdated.getLatitude());
-                    event.setLongitude(eventUpdated.getLongitude());
+                        event.setKeyEventId(ds.getKey());
+                        event.setCreator(eventUpdated.getCreator());
+                        event.setEventDate(eventUpdated.getEventDate());
+                        event.setName(eventUpdated.getName());
+                        event.setDescription(eventUpdated.getDescription());
+                        event.setTime(eventUpdated.getTime());
+                        event.setParticipants(eventUpdated.getParticipants());
+                        event.setLatitude(eventUpdated.getLatitude());
+                        event.setLongitude(eventUpdated.getLongitude());
+                    }
                 }
             }
         }
@@ -111,10 +108,12 @@ public class EventJDBC implements EventDAO, ChildEventListener {
 
     @Override
     public void onChildRemoved(DataSnapshot dataSnapshot) {
-        if(dataSnapshot.exists() && !dataSnapshot.getKey().equals("user")) {
-            for (Event event : events) {
-                if (event.getKeyEventId().matches(dataSnapshot.getKey())) {
-                    events.remove(event);
+        if (dataSnapshot.exists() && !dataSnapshot.getKey().equals("user")) {
+            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                for (Event event : events) {
+                    if (event.getKeyEventId().matches(ds.getKey())) {
+                        events.remove(event);
+                    }
                 }
             }
         }

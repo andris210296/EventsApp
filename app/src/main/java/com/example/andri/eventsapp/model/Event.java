@@ -21,7 +21,7 @@ public class Event implements Serializable{
     private Date eventDate;
     private String time;
     private User creator;
-    private List<User> participants;
+    private HashMap<String, String> participants;
     private Double latitude;
     private Double longitude;
 
@@ -37,7 +37,7 @@ public class Event implements Serializable{
         setEventDate(eventDate);
         setTime(time);
         setCreator(creator);
-        setParticipants(new ArrayList<User>());
+        setParticipants(new HashMap<String, String>());
         setLatitude(null);
         setLongitude(null);
     }
@@ -49,7 +49,7 @@ public class Event implements Serializable{
         setEventDate(eventDate);
         setTime(time);
         setCreator(creator);
-        setParticipants(new ArrayList<User>());
+        setParticipants(new HashMap<String, String>());
         setLatitude(latitude);
         setLongitude(longitude);
     }
@@ -61,12 +61,12 @@ public class Event implements Serializable{
         setEventDate(eventDate);
         setTime(time);
         setCreator(creator);
-        setParticipants(new ArrayList<User>());
+        setParticipants(new HashMap<String, String>());
         setLatitude(latitude);
         setLongitude(longitude);
     }
 
-    public Event(String keyEventId, String name, String description, String eventDate, String time, User creator, List<User> participants, double latitude, double longitude){
+    public Event(String keyEventId, String name, String description, String eventDate, String time, User creator, HashMap<String, String> participants, double latitude, double longitude){
         setKeyEventId(keyEventId);
         setName(name);
         setDescription(description);
@@ -138,11 +138,11 @@ public class Event implements Serializable{
         this.creator = creator;
     }
 
-    public List<User> getParticipants() {
+    public HashMap<String, String> getParticipants() {
         return participants;
     }
 
-    public void setParticipants(List<User> participants) {
+    public void setParticipants(HashMap<String, String> participants) {
         this.participants = participants;
     }
 

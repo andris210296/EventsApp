@@ -1,35 +1,19 @@
 package com.example.andri.eventsapp;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
-import android.location.LocationManager;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.text.Html;
-import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.example.andri.eventsapp.model.Event;
 import com.example.andri.eventsapp.model.GpsTracker;
 import com.example.andri.eventsapp.model.User;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -37,8 +21,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener, GoogleMap.OnMapClickListener {
@@ -104,7 +86,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Adds a marker if exists a location on event
         if(event.getLatitude() != null && event.getLongitude() != null) {
             myMarkerPosition = new LatLng(event.getLatitude(), event.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(myMarkerPosition).title(getString(R.string.sMyLocation)));
+            mMap.addMarker(new MarkerOptions().position(myMarkerPosition).title(getString(R.string.sEventLocation)));
             zoomLevel = 10.0f;
         }
 
@@ -119,7 +101,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapClick(final LatLng latLng) {
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,zoomLevel));
-        myMarker= mMap.addMarker(new MarkerOptions().position(latLng).title(getString(R.string.sMyLocation)));
+        myMarker= mMap.addMarker(new MarkerOptions().position(latLng).title(getString(R.string.sEventLocation)));
         AlertDialog alert;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.sSetLocation));

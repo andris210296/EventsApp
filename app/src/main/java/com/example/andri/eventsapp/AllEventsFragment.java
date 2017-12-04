@@ -11,20 +11,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.andri.eventsapp.model.Event;
 import com.example.andri.eventsapp.model.EventModel;
-import com.example.andri.eventsapp.model.RVAdapter;
+import com.example.andri.eventsapp.model.RVAdapterAllEvents;
+import com.example.andri.eventsapp.model.RVAdapterMyEvents;
 import com.example.andri.eventsapp.model.User;
 import com.example.andri.eventsapp.model.UserModel;
-import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.zip.Inflater;
 
 
 /**
@@ -95,6 +92,7 @@ public class AllEventsFragment extends Fragment {
                 eventM = new EventModel();
                 events = (ArrayList<Event>) getArguments().getSerializable("events");
                 eventM.setEvents(events);
+                user = (User) getArguments().get("user");
 
             } catch (Exception e) {
                 openDlg(getString(R.string.exList));
@@ -113,10 +111,15 @@ public class AllEventsFragment extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(view.getContext());
         rv.setLayoutManager(llm);
 
-        RVAdapter adapter = new RVAdapter(events,getContext());
-        //adapter.getImbDelete().setVisibility(View.INVISIBLE);
+        try {
 
-        rv.setAdapter(adapter);
+            RVAdapterAllEvents adapter = new RVAdapterAllEvents(user, events, getContext());
+            rv.setAdapter(adapter);
+
+        }catch (Exception e){
+            openDlg(getString(R.string.exList));
+        }
+
         return view;
     }
 

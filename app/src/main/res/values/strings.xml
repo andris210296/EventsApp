@@ -23,7 +23,7 @@
     <string name="sBtnUpdateEvent">Alterar Evento</string>
     <string name="sBtnDeleteEvent">Deletar Evento</string>
 
-    <string name="sMyLocation">Minha atual localização</string>
+    <string name="sEventLocation">Localização do Evento</string>
     <string name="sSetLocation">Adicionar marcador</string>
     <string name="sQMyLocation">Você deseja adicionar o marcador aqui?</string>
     <string name="exLocation">Erro com a localização!</string>
@@ -42,6 +42,7 @@
     <string name="exGetUserById">Erro ao recuperar Usuario por Id!</string>
     <string name="exDelete">Erro ao deletar!</string>
     <string name="exList">Erro ao carregar lista!</string>
+    <string name="exParticipate">Erro ao tentar participar do Evento!</string>
 
     <string name="title_act_new_register">Cadastro</string>
     <string name="title_activity_menu">MenuActivity</string>
