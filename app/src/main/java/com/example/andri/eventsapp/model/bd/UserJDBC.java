@@ -68,10 +68,10 @@ public class UserJDBC implements UserDAO, ChildEventListener {
 
     @Override
     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-        if(dataSnapshot.exists() && !dataSnapshot.getKey().equals("event")){
-            for(DataSnapshot ds: dataSnapshot.getChildren()){
+        if (dataSnapshot.exists() && !dataSnapshot.getKey().equals("event")) {
+            for (DataSnapshot ds : dataSnapshot.getChildren()) {
                 User user = ds.getValue(User.class);
-                if(user.getKeyUserId() != null)
+                if (user.getKeyUserId() != null)
                     users.add(user);
             }
         }
@@ -79,17 +79,18 @@ public class UserJDBC implements UserDAO, ChildEventListener {
 
     @Override
     public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-        if(dataSnapshot.exists() && !dataSnapshot.getKey().equals("event")) {
-            for (User user : users) {
-                if (user.getKeyUserId().matches(dataSnapshot.getKey())) {
+        if (dataSnapshot.exists() && !dataSnapshot.getKey().equals("event")) {
+            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                for (User user : users) {
+                    if (user.getKeyUserId().matches(ds.getKey())) {
+                        User userUpdated = ds.getValue(User.class);
 
-                    User userUpdated = dataSnapshot.getValue(User.class);
-
-                    user.setKeyUserId(dataSnapshot.getKey());
-                    user.setLogin(userUpdated.getLogin());
-                    user.setPassword(userUpdated.getPassword());
-                    user.setEmail(userUpdated.getEmail());
-                    user.setUserDate(userUpdated.getUserDate());
+                        user.setKeyUserId(dataSnapshot.getKey());
+                        user.setLogin(userUpdated.getLogin());
+                        user.setPassword(userUpdated.getPassword());
+                        user.setEmail(userUpdated.getEmail());
+                        user.setUserDate(userUpdated.getUserDate());
+                    }
                 }
             }
         }
@@ -97,10 +98,12 @@ public class UserJDBC implements UserDAO, ChildEventListener {
 
     @Override
     public void onChildRemoved(DataSnapshot dataSnapshot) {
-        if(dataSnapshot.exists() && !dataSnapshot.getKey().equals("event")) {
-            for (User user : users) {
-                if (user.getKeyUserId().matches(dataSnapshot.getKey())) {
-                    users.remove(user);
+        if (dataSnapshot.exists() && !dataSnapshot.getKey().equals("event")) {
+            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                for (User user : users) {
+                    if (user.getKeyUserId().matches(ds.getKey())) {
+                        users.remove(user);
+                    }
                 }
             }
         }

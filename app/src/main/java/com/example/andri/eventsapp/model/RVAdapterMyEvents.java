@@ -33,15 +33,19 @@ import java.util.List;
 public class RVAdapterMyEvents extends RecyclerView.Adapter<RVAdapterMyEvents.EventViewHolder> {
 
     private Event event;
+    private EventModel eventM;
     private List<Event> events;
+    private User user;
     private GoogleMap mMap;
 
     private Context mContext;
 
 
-    public RVAdapterMyEvents(List<Event> events, Context mContext) {
+    public RVAdapterMyEvents(User user, List<Event> events, Context mContext) throws Exception {
         this.events = events;
         this.mContext = mContext;
+        this.user = user;
+        eventM = new EventModel();
     }
 
 
@@ -134,6 +138,12 @@ public class RVAdapterMyEvents extends RecyclerView.Adapter<RVAdapterMyEvents.Ev
             switch (menuItem.getItemId()) {
                 case R.id.act_not_participate:
                     Toast.makeText(mContext, mContext.getString(R.string.sBtnNotParticipate), Toast.LENGTH_SHORT).show();
+
+                    try {
+                        eventM.leaveEvent(user, event);
+                    }catch (Exception e){
+                        Toast.makeText(mContext, mContext.getString(R.string.sBtnNotParticipate), Toast.LENGTH_SHORT).show();
+                    }
                     return true;
                 case R.id.act_edit:
                     Toast.makeText(mContext, mContext.getString(R.string.sBtnUpdate), Toast.LENGTH_SHORT).show();

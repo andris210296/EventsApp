@@ -128,7 +128,7 @@ public class MyEventsFragment extends Fragment implements View.OnClickListener {
         fabNewEvent.setOnClickListener(this);
 
         try {
-            RVAdapterMyEvents adapter = new RVAdapterMyEvents(eventM.myEventsList(user),view.getContext());
+            RVAdapterMyEvents adapter = new RVAdapterMyEvents(user, eventM.myEventsList(user), view.getContext());
             rv.setAdapter(adapter);
 
         } catch (Exception e) {

@@ -73,7 +73,10 @@ public class EventModel {
         List<Event> eventsUser = new ArrayList<>();
         if (!getEvents().isEmpty()) {
             for (Event event : getEvents()) {
-                if (event.getCreator().getKeyUserId().equals(user.getKeyUserId()) || event.getParticipants().containsKey(user.getKeyUserId())) {
+                if (event.getCreator().getKeyUserId().equals(user.getKeyUserId())) {
+                    eventsUser.add(event);
+                }
+                else if(event.getParticipants()!= null && event.getParticipants().containsKey(user.getKeyUserId())){
                     eventsUser.add(event);
                 }
             }
