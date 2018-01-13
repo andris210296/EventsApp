@@ -21,6 +21,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
@@ -40,22 +41,21 @@ public class RVAdapterAllEvents extends RecyclerView.Adapter<RVAdapterAllEvents.
     private Context mContext;
 
 
-    public RVAdapterAllEvents(User user,List<Event> events, Context mContext) throws Exception {
+    public RVAdapterAllEvents(User user, List<Event> events, Context mContext) throws Exception {
         this.events = events;
         this.mContext = mContext;
         this.user = user;
         eventM = new EventModel();
     }
 
-
     public class EventViewHolder extends RecyclerView.ViewHolder {
         CardView cv;
         TextView txtNameEvent;
         TextView txtDateEvent;
         TextView txtTimeEvent;
+        TextView txtParticipantsEvent;
         MapView mapView;
         ImageButton imbOpts;
-
 
         EventViewHolder(View itemView) {
             super(itemView);
@@ -63,9 +63,9 @@ public class RVAdapterAllEvents extends RecyclerView.Adapter<RVAdapterAllEvents.
             txtNameEvent = (TextView) itemView.findViewById(R.id.txtNameEvent);
             txtDateEvent = (TextView) itemView.findViewById(R.id.txtDateEvent);
             txtTimeEvent = (TextView) itemView.findViewById(R.id.txtTimeEvent);
+            txtParticipantsEvent = (TextView) itemView.findViewById(R.id.txtParticipantsEvent);
             mapView = (MapView) itemView.findViewById(R.id.mapView);
             imbOpts = (ImageButton) itemView.findViewById(R.id.imbOpts);
-
         }
     }
 
@@ -75,11 +75,14 @@ public class RVAdapterAllEvents extends RecyclerView.Adapter<RVAdapterAllEvents.
         EventViewHolder pvh = new EventViewHolder(v);
         return pvh;
     }
+
     @Override
     public void onBindViewHolder(final EventViewHolder eventViewHolder, final int i) {
         eventViewHolder.txtNameEvent.setText(events.get(i).getName());
         eventViewHolder.txtDateEvent.setText(events.get(i).getEventDate());
         eventViewHolder.txtTimeEvent.setText(events.get(i).getTime());
+        eventViewHolder.txtParticipantsEvent.setText(mContext.getString(R.string.sBtnParticipants)+"\n"+
+                events.get(i).getCreator().getLogin());
         eventViewHolder.mapView.onCreate(null);
 
         eventViewHolder.mapView.getMapAsync(new OnMapReadyCallback() {
@@ -89,15 +92,15 @@ public class RVAdapterAllEvents extends RecyclerView.Adapter<RVAdapterAllEvents.
                 mMap.getUiSettings().setMapToolbarEnabled(false);
                 LatLng myPosition = new LatLng(events.get(i).getLatitude(), events.get(i).getLongitude());
                 mMap.addMarker(new MarkerOptions().position(myPosition).title(mContext.getString(R.string.sEventLocation)));
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPosition,13.0f));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPosition, 16.0f));
             }
         });
 
-        eventViewHolder.imbOpts.setOnClickListener(new View.OnClickListener(){
+        eventViewHolder.imbOpts.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                showPopupMenu(eventViewHolder.imbOpts,events.get(i));
+                showPopupMenu(eventViewHolder.imbOpts, events.get(i));
             }
         });
 
@@ -107,12 +110,13 @@ public class RVAdapterAllEvents extends RecyclerView.Adapter<RVAdapterAllEvents.
     public int getItemCount() {
         return events.size();
     }
+
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
     }
 
-    private void showPopupMenu(View view,Event event) {
+    private void showPopupMenu(View view, Event event) {
         // inflate menu
         this.event = event;
         PopupMenu popup = new PopupMenu(mContext, view);
@@ -127,16 +131,18 @@ public class RVAdapterAllEvents extends RecyclerView.Adapter<RVAdapterAllEvents.
      */
     class MyMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
 
-        public MyMenuItemClickListener() {      }
+        public MyMenuItemClickListener() {
+        }
+
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
             switch (menuItem.getItemId()) {
                 case R.id.act_participate:
-                    Toast.makeText(mContext,mContext.getString(R.string.sBtnParticipate) , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, mContext.getString(R.string.sBtnParticipate), Toast.LENGTH_SHORT).show();
 
                     try {
                         eventM.participateEvent(user, event);
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         Toast.makeText(mContext, mContext.getString(R.string.exParticipate), Toast.LENGTH_SHORT).show();
                     }
                     return true;
@@ -146,7 +152,7 @@ public class RVAdapterAllEvents extends RecyclerView.Adapter<RVAdapterAllEvents.
 
                     try {
                         eventM.leaveEvent(user, event);
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         Toast.makeText(mContext, mContext.getString(R.string.sBtnNotParticipate), Toast.LENGTH_SHORT).show();
                     }
 

@@ -31,6 +31,7 @@
     <string name="sQDeleteUser">Você deseja deletar este usuário?</string>
     <string name="sQDeleteEvent">Você deseja deletar este evento?</string>
 
+    <string name="sBtnParticipants">Participantes</string>
     <string name="sBtnParticipate">Participar</string>
     <string name="sBtnNotParticipate">Sair</string>
 

@@ -90,7 +90,7 @@ public class RVAdapterMyEvents extends RecyclerView.Adapter<RVAdapterMyEvents.Ev
                 mMap.getUiSettings().setMapToolbarEnabled(false);
                 LatLng myPosition = new LatLng(events.get(i).getLatitude(), events.get(i).getLongitude());
                 mMap.addMarker(new MarkerOptions().position(myPosition).title(mContext.getString(R.string.sEventLocation)));
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPosition,13.0f));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPosition,16.0f));
             }
         });
 

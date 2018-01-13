@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="400dp"
     android:padding="16dp">
 
     <android.support.v7.widget.CardView
@@ -14,53 +15,65 @@
             android:layout_height="wrap_content"
             android:padding="16dp">
 
-            <com.google.android.gms.maps.MapView
-                android:id="@+id/mapView"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginRight="16dp"
-                app:liteMode="true"
-                app:mapType="normal" />
 
             <TextView
                 android:id="@+id/txtNameEvent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/mapView"
                 android:text="NomeEvento"
                 android:textSize="30sp" />
 
+
+            <com.google.android.gms.maps.MapView
+                android:id="@+id/mapView"
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:layout_below="@+id/txtNameEvent"
+                android:layout_marginTop="10dp"
+                app:liteMode="true"
+                app:mapType="normal" />
+
             <ImageButton
                 android:id="@+id/imbOpts"
-                app:srcCompat="@drawable/ic_arrow_drop_down_circle_black_24dp"
-                android:layout_alignParentRight="true"
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:layout_alignBottom="@+id/txtNameEvent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/mapView"
+                android:layout_marginLeft="130dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/txtTimeEvent"
+                android:background="@color/cardview_light_background"
+                app:srcCompat="@drawable/ic_arrow_drop_down_circle_black_24dp" />
+
+
+            <TextView
+                android:id="@+id/txtDateEvent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/mapView"
+                android:layout_marginTop="10dp"
+                android:text="31/08/2017" />
+
+            <TextView
+                android:id="@+id/txtTimeEvent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/mapView"
                 android:layout_marginLeft="20dp"
-                android:background="@color/cardview_light_background"/>
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/txtDateEvent"
+                android:text="21:45" />
 
 
-
-                <TextView
-                    android:id="@+id/txtTimeEvent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/txtNameEvent"
-                    android:layout_toRightOf="@+id/txtDateEvent"
-                    android:layout_marginLeft="20dp"
-                    android:text="21:45" />
-
-                <TextView
-                    android:id="@+id/txtDateEvent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/txtNameEvent"
-                    android:layout_toRightOf="@+id/mapView"
-                    android:text="31/08/2017" />
+            <TextView
+                android:id="@+id/txtParticipantsEvent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtDateEvent"
+                android:layout_marginTop="15dp"
+                android:layout_toRightOf="@+id/mapView"
+                android:text="Participant1" />
 
 
         </RelativeLayout>
